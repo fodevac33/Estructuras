@@ -1,5 +1,0 @@
-../Peripheral/Core/GPIO.c:11:6:GPIO_Led_Init	32	static
-../Peripheral/Core/GPIO.c:26:6:GPIO_Led_Write	16	static
-../Peripheral/Core/GPIO.c:36:6:GPIO_Led_Toggle	8	static
-../Peripheral/Core/GPIO.c:42:6:GPIO_Button_Init	32	static
-../Peripheral/Core/GPIO.c:57:12:GPIO_Button_Read	8	static

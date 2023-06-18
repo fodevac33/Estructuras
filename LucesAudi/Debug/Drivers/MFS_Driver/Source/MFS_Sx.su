@@ -1,7 +1,0 @@
-/home/felipe/Documents/Estructuras/LedBLink-C/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_bus.h:563:22:LL_AHB2_GRP1_EnableClock	24	static
-/home/felipe/Documents/Estructuras/LedBLink-C/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_gpio.h:285:22:LL_GPIO_SetPinMode	48	static,ignoring_inline_asm
-/home/felipe/Documents/Estructuras/LedBLink-C/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_gpio.h:875:26:LL_GPIO_IsInputPinSet	16	static
-../Drivers/MFS_Driver/Source/MFS_Sx.c:11:6:MFS_Sx_Init	8	static
-../Drivers/MFS_Driver/Source/MFS_Sx.c:22:9:MFS_S1_Read	8	static
-../Drivers/MFS_Driver/Source/MFS_Sx.c:30:9:MFS_S2_Read	8	static
-../Drivers/MFS_Driver/Source/MFS_Sx.c:38:9:MFS_S3_Read	8	static

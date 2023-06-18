@@ -1,8 +1,0 @@
-LCD.c:11:13:LCD_Command	3
-LCD.c:63:13:LCD_Init	1
-LCD.c:90:6:LCD_Character	3
-LCD.c:123:14:LCD_PadString	3
-LCD.c:137:6:LCD_String	2
-LCD.c:146:6:LCD_YX	2
-LCD.c:156:6:uint8_to_char	2
-LCD.c:163:14:LCD_Create	1

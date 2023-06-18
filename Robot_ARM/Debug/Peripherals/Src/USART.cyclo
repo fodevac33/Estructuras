@@ -1,4 +1,0 @@
-core_cm4.h:1679:22:__NVIC_EnableIRQ	2
-core_cm4.h:1809:22:__NVIC_SetPriority	2
-USART.c:13:13:USART_Gpio	1
-USART.c:40:6:USART_Init	1

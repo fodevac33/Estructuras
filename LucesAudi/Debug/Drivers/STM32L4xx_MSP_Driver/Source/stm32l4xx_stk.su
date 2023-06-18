@@ -1,4 +1,0 @@
-/home/felipe/Documents/Estructuras/LedBLink-C/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_bus.h:1673:22:LL_APB2_GRP1_EnableClock	24	static
-../Drivers/STM32L4xx_MSP_Driver/Source/stm32l4xx_stk.c:22:6:MSP_Callback_SysTick_Handler	4	static
-../Drivers/STM32L4xx_MSP_Driver/Source/stm32l4xx_stk.c:32:10:MSP_GetTick	4	static
-../Drivers/STM32L4xx_MSP_Driver/Source/stm32l4xx_stk.c:37:6:MSP_Init1msTick	8	static

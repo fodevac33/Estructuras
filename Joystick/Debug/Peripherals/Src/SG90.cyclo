@@ -1,5 +1,0 @@
-SG90.c:11:13:SG90_Gpio	8
-SG90.c:52:13:SG90_Init	5
-SG90.c:102:13:Servo_SetDutyCyle	7
-SG90.c:115:15:Servo_Create	1
-SG90.c:135:6:Servo_Rotate	1

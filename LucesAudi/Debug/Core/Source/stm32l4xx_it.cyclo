@@ -1,2 +1,0 @@
-stm32l4xx_it.c:29:6:SysTick_Handler	1
-stm32l4xx_it.c:34:28:MSP_Callback_SysTick_Handler	1

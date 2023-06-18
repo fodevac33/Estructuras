@@ -1,8 +1,0 @@
-stm32l4xx_ll_bus.h:563:22:LL_AHB2_GRP1_EnableClock	1
-stm32l4xx_ll_gpio.h:285:22:LL_GPIO_SetPinMode	3
-stm32l4xx_ll_gpio.h:496:22:LL_GPIO_SetPinPull	3
-stm32l4xx_ll_gpio.h:846:26:LL_GPIO_ReadInputPort	1
-stm32l4xx_ll_gpio.h:956:22:LL_GPIO_SetOutputPin	1
-stm32l4xx_ll_gpio.h:985:22:LL_GPIO_ResetOutputPin	1
-keypad.c:11:6:Keypad_Init	1
-keypad.c:43:9:Keypad_Scan	17

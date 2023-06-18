@@ -1,3 +1,0 @@
-../Core/Source/AUDI_fms.c:14:6:fms_LeftLightShow	16	static
-../Core/Source/AUDI_fms.c:160:6:fms_RightLightShow	16	static
-../Core/Source/AUDI_fms.c:305:6:fms_DualLightShow	16	static

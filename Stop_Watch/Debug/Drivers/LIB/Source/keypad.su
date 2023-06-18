@@ -1,8 +1,0 @@
-C:/Users/gosor/STM32CubeIDE/Clase_keypad_Display/Stop_Watch/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_bus.h:563:22:LL_AHB2_GRP1_EnableClock	24	static
-C:/Users/gosor/STM32CubeIDE/Clase_keypad_Display/Stop_Watch/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_gpio.h:285:22:LL_GPIO_SetPinMode	48	static,ignoring_inline_asm
-C:/Users/gosor/STM32CubeIDE/Clase_keypad_Display/Stop_Watch/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_gpio.h:496:22:LL_GPIO_SetPinPull	48	static,ignoring_inline_asm
-C:/Users/gosor/STM32CubeIDE/Clase_keypad_Display/Stop_Watch/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_gpio.h:846:26:LL_GPIO_ReadInputPort	16	static
-C:/Users/gosor/STM32CubeIDE/Clase_keypad_Display/Stop_Watch/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_gpio.h:956:22:LL_GPIO_SetOutputPin	16	static
-C:/Users/gosor/STM32CubeIDE/Clase_keypad_Display/Stop_Watch/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_gpio.h:985:22:LL_GPIO_ResetOutputPin	16	static
-../Drivers/LIB/Source/keypad.c:11:6:Keypad_Init	8	static
-../Drivers/LIB/Source/keypad.c:43:9:Keypad_Scan	8	static

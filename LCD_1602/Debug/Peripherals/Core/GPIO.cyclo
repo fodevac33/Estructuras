@@ -1,6 +1,0 @@
-GPIO.c:10:6:Global_GPIO_Init	1
-GPIO.c:19:6:GPIO_Led_Init	1
-GPIO.c:32:6:GPIO_Led_Write	2
-GPIO.c:42:6:GPIO_Led_Toggle	1
-GPIO.c:48:6:GPIO_User_Button_Init	1
-GPIO.c:61:12:GPIO_User_Button_Read	1
