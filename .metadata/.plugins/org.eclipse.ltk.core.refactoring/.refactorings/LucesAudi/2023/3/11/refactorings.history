@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;LucesAudi/Drivers/MFS_Driver/Include/MFS_Dx-h&apos; to &apos;MFS_Dx.h&apos;" description="Rename resource &apos;MFS_Dx-h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Drivers/MFS_Driver/Include/MFS_Dx-h" name="MFS_Dx.h" stamp="1679071240517" updateReferences="true"/>
-</session>

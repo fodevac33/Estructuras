@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete 3 resources" deleteContents="false" description="Delete 3 resources" element1="/Robot_ARM/Peripherals/Inc/ADC.h" element2="/Robot_ARM/Peripherals/Inc/INTERRUPTS.h" element3="/Robot_ARM/Peripherals/Inc/PWM.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="3" stamp="1685665762273"/>&#x0A;<refactoring comment="Delete 3 resources" deleteContents="false" description="Delete 3 resources" element1="/Robot_ARM/Peripherals/Src/ADC.c" element2="/Robot_ARM/Peripherals/Src/INTERRUPTS.c" element3="/Robot_ARM/Peripherals/Src/PWM.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="3" stamp="1685665768857"/>
-</session>

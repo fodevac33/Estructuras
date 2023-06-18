@@ -2,9 +2,11 @@ Drivers/
 Debug/
 Startup/
 .settings/
+.metadata/
 
 .cproject
 .mxproject
 *.launch
 *.ld
 .project
+

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;USART_Printf/Peripherals/Core/USART.h&apos; to &apos;USART.c&apos;" description="Rename resource &apos;USART.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Peripherals/Core/USART.h" name="USART.c" stamp="1684788978669" updateReferences="true"/>
-</session>
