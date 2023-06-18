@@ -1,0 +1,3 @@
+../Peripherals/Src/ADC.c:12:6:ADC_GPIO	184	static
+../Peripherals/Src/ADC.c:58:6:ADC_Init	48	static
+../Peripherals/Src/ADC.c:109:10:Read_ADC	24	static

@@ -1,0 +1,2 @@
+../Core/Src/printf_redirect.c:15:5:__io_putchar	24	static
+../Core/Src/printf_redirect.c:23:5:_write	32	static

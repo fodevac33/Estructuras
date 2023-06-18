@@ -1,0 +1,2 @@
+../Core/Source/stm32l4xx_it.c:29:6:SysTick_Handler	8	static
+../Core/Source/stm32l4xx_it.c:34:28:MSP_Callback_SysTick_Handler	4	static

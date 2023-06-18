@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SG90_Servo/Peripherals/Core&apos; to &apos;Src&apos;" description="Rename resource &apos;Core&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Peripherals/Core" name="Src" stamp="1684862903647" updateReferences="true"/>
+</session>

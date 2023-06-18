@@ -1,0 +1,3 @@
+../Drivers/LIB/Source/systick.c:12:6:SysTick_Handler	8	static
+../Drivers/LIB/Source/systick.c:16:6:SysTick_Callback	4	static
+../Drivers/LIB/Source/systick.c:20:10:Get_Tick	4	static

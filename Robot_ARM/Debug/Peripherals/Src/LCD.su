@@ -1,0 +1,8 @@
+../Peripherals/Src/LCD.c:11:13:LCD_Command	24	static
+../Peripherals/Src/LCD.c:63:13:LCD_Init	40	static
+../Peripherals/Src/LCD.c:90:6:LCD_Character	24	static
+../Peripherals/Src/LCD.c:123:14:LCD_PadString	24	static
+../Peripherals/Src/LCD.c:137:6:LCD_String	32	static
+../Peripherals/Src/LCD.c:146:6:LCD_YX	16	static
+../Peripherals/Src/LCD.c:156:6:uint8_to_char	32	static
+../Peripherals/Src/LCD.c:163:14:LCD_Create	56	static

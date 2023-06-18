@@ -1,0 +1,10 @@
+09:42:10 **** Incremental Build of configuration Debug for project PRN_Calc ****
+make -j12 all 
+arm-none-eabi-size   PRN_Calc.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5780	    172	   1612	   7564	   1d8c	PRN_Calc.elf
+Finished building: default.size.stdout
+ 
+
+09:42:10 Build Finished. 0 errors, 0 warnings. (took 119ms)
+

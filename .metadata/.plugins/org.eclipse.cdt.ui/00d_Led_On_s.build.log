@@ -1,0 +1,15 @@
+10:05:52 **** Build of configuration Debug for project 00d_Led_On_s ****
+make -j12 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -I"/home/felipe/Documents/Estructuras/00d_Led_On_s/Core/Include" -I"/home/felipe/Documents/Estructuras/00d_Led_On_s/Drivers/stm32l476_msp_asm/Include" -I"/home/felipe/Documents/Estructuras/00d_Led_On_s/Drivers/stm32l476_n64_bsp_asm/Include" -x assembler-with-cpp -MMD -MP -MF"Core/Source/main.d" -MT"Core/Source/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Source/main.o" "../Core/Source/main.s"
+arm-none-eabi-gcc -o "00d_Led_On_s.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/felipe/Documents/Estructuras/00d_Led_On_s/STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="00d_Led_On_s.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+/opt/st/stm32cubeide_1.11.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.linux64_1.0.100.202210260954/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/bin/ld: ./Core/Source/main.o: in function `main':
+/home/felipe/Documents/Estructuras/00d_Led_On_s/Debug/../Core/Source/main.s:18: undefined reference to `MFS_D1_Init'
+/opt/st/stm32cubeide_1.11.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.linux64_1.0.100.202210260954/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/bin/ld: /home/felipe/Documents/Estructuras/00d_Led_On_s/Debug/../Core/Source/main.s:19: undefined reference to `MFS_D2_Init'
+/opt/st/stm32cubeide_1.11.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.linux64_1.0.100.202210260954/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/bin/ld: /home/felipe/Documents/Estructuras/00d_Led_On_s/Debug/../Core/Source/main.s:20: undefined reference to `MFS_D3_Init'
+/opt/st/stm32cubeide_1.11.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.linux64_1.0.100.202210260954/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/bin/ld: /home/felipe/Documents/Estructuras/00d_Led_On_s/Debug/../Core/Source/main.s:21: undefined reference to `MFS_D4_Init'
+collect2: error: ld returned 1 exit status
+make: *** [makefile:68: 00d_Led_On_s.elf] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+10:05:52 Build Failed. 6 errors, 0 warnings. (took 220ms)
+

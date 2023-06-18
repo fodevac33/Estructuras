@@ -1,0 +1,14 @@
+/*
+ * main.c
+ *
+ *  Created on: Mar 10, 2023
+ *      Author: felipe
+ */
+
+#include "main.h"
+
+int main(void) {
+
+	for(;;);
+	return 0;
+}

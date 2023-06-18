@@ -1,0 +1,2 @@
+printf_redirect.c:15:5:__io_putchar	1
+printf_redirect.c:23:5:_write	2

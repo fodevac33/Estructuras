@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="RX_Data"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="rxBuffer"/>
+			<item value="&#x09;//check to see if action is recieved while waiting for it"/>
+			<item value="Servo_TIM_Handle"/>
+			<item value="LCD_XY"/>
+			<item value="new_str"/>
+			<item value="data"/>
+			<item value="."/>
+			<item value="ADC1Handler"/>
+			<item value="sConfig"/>
+			<item value="sConfig "/>
+			<item value="hadc1"/>
+			<item value="RCC_OscInitStruct"/>
+			<item value="RCC"/>
+			<item value="ADC_ConvertedData"/>
+			<item value="ReadADC_ConvertedData"/>
+		</list>
+		<list key="replacehistory">
+			<item value="RX_Data"/>
+			<item value="Servo-&gt;TIM_Handle"/>
+			<item value="LCD_YX"/>
+			<item value="padded_str"/>
+			<item value="-&gt;"/>
+			<item value="Joystick-&gt;ADC_Handler"/>
+			<item value="Joystick-&gt;ChannelConf"/>
+			<item value="ADC1Handler"/>
+			<item value=""/>
+			<item value="adcConf"/>
+			<item value="oscInit"/>
+			<item value="ADC_Data"/>
+			<item value="ReadADC_Data"/>
+			<item value="ADC_Voltage"/>
+			<item value="ADC_ConvertedData"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1184"/>
+		<item key="DIALOG_Y_ORIGIN" value="320"/>
+		<item key="DIALOG_WIDTH" value="340"/>
+		<item key="DIALOG_HEIGHT" value="256"/>
+		<item key="DIALOG_FONT_NAME" value="1|Fira Sans|10.0|0|GTK|1|"/>
+	</section>
+</section>

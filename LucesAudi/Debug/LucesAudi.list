@@ -1,0 +1,2793 @@
+
+LucesAudi.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .isr_vector   00000188  08000000  08000000  00010000  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .text         0000106c  08000188  08000188  00010188  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata       00000000  080011f4  080011f4  00020010  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .ARM.extab    00000000  080011f4  080011f4  00020010  2**0
+                  CONTENTS
+  4 .ARM          00000000  080011f4  080011f4  00020010  2**0
+                  CONTENTS
+  5 .preinit_array 00000000  080011f4  080011f4  00020010  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  6 .init_array   00000004  080011f4  080011f4  000111f4  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  7 .fini_array   00000004  080011f8  080011f8  000111f8  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  8 .data         00000010  20000000  080011fc  00020000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  9 .sram2        00000000  10000000  10000000  00020010  2**0
+                  CONTENTS
+ 10 .bss          00000048  20000010  20000010  00020010  2**2
+                  ALLOC
+ 11 ._user_heap_stack 00000600  20000058  20000058  00020010  2**0
+                  ALLOC
+ 12 .ARM.attributes 00000030  00000000  00000000  00020010  2**0
+                  CONTENTS, READONLY
+ 13 .debug_info   00002982  00000000  00000000  00020040  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 14 .debug_abbrev 000009c9  00000000  00000000  000229c2  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 15 .debug_aranges 00000468  00000000  00000000  00023390  2**3
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 16 .debug_ranges 000003f0  00000000  00000000  000237f8  2**3
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 17 .debug_macro  0001dd7d  00000000  00000000  00023be8  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 18 .debug_line   000035aa  00000000  00000000  00041965  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 19 .debug_str    000a7316  00000000  00000000  00044f0f  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 20 .comment      00000050  00000000  00000000  000ec225  2**0
+                  CONTENTS, READONLY
+ 21 .debug_frame  00000edc  00000000  00000000  000ec278  2**2
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+
+Disassembly of section .text:
+
+08000188 <__do_global_dtors_aux>:
+ 8000188:	b510      	push	{r4, lr}
+ 800018a:	4c05      	ldr	r4, [pc, #20]	; (80001a0 <__do_global_dtors_aux+0x18>)
+ 800018c:	7823      	ldrb	r3, [r4, #0]
+ 800018e:	b933      	cbnz	r3, 800019e <__do_global_dtors_aux+0x16>
+ 8000190:	4b04      	ldr	r3, [pc, #16]	; (80001a4 <__do_global_dtors_aux+0x1c>)
+ 8000192:	b113      	cbz	r3, 800019a <__do_global_dtors_aux+0x12>
+ 8000194:	4804      	ldr	r0, [pc, #16]	; (80001a8 <__do_global_dtors_aux+0x20>)
+ 8000196:	f3af 8000 	nop.w
+ 800019a:	2301      	movs	r3, #1
+ 800019c:	7023      	strb	r3, [r4, #0]
+ 800019e:	bd10      	pop	{r4, pc}
+ 80001a0:	20000010 	.word	0x20000010
+ 80001a4:	00000000 	.word	0x00000000
+ 80001a8:	080011dc 	.word	0x080011dc
+
+080001ac <frame_dummy>:
+ 80001ac:	b508      	push	{r3, lr}
+ 80001ae:	4b03      	ldr	r3, [pc, #12]	; (80001bc <frame_dummy+0x10>)
+ 80001b0:	b11b      	cbz	r3, 80001ba <frame_dummy+0xe>
+ 80001b2:	4903      	ldr	r1, [pc, #12]	; (80001c0 <frame_dummy+0x14>)
+ 80001b4:	4803      	ldr	r0, [pc, #12]	; (80001c4 <frame_dummy+0x18>)
+ 80001b6:	f3af 8000 	nop.w
+ 80001ba:	bd08      	pop	{r3, pc}
+ 80001bc:	00000000 	.word	0x00000000
+ 80001c0:	20000014 	.word	0x20000014
+ 80001c4:	080011dc 	.word	0x080011dc
+
+080001c8 <fms_LeftLightShow>:
+
+int beat = 500;
+
+
+//Maquinas de estado
+void fms_LeftLightShow(void){
+ 80001c8:	b580      	push	{r7, lr}
+ 80001ca:	b082      	sub	sp, #8
+ 80001cc:	af00      	add	r7, sp, #0
+	static uint32_t lastTick = 0;
+	static uint8_t state = 1;
+	uint8_t next_state;
+
+	if (MSP_GetTick() - lastTick >= beat/8){
+ 80001ce:	f000 ff9f 	bl	8001110 <MSP_GetTick>
+ 80001d2:	4602      	mov	r2, r0
+ 80001d4:	4b88      	ldr	r3, [pc, #544]	; (80003f8 <fms_LeftLightShow+0x230>)
+ 80001d6:	681b      	ldr	r3, [r3, #0]
+ 80001d8:	1ad2      	subs	r2, r2, r3
+ 80001da:	4b88      	ldr	r3, [pc, #544]	; (80003fc <fms_LeftLightShow+0x234>)
+ 80001dc:	681b      	ldr	r3, [r3, #0]
+ 80001de:	2b00      	cmp	r3, #0
+ 80001e0:	da00      	bge.n	80001e4 <fms_LeftLightShow+0x1c>
+ 80001e2:	3307      	adds	r3, #7
+ 80001e4:	10db      	asrs	r3, r3, #3
+ 80001e6:	429a      	cmp	r2, r3
+ 80001e8:	d355      	bcc.n	8000296 <fms_LeftLightShow+0xce>
+		lastTick = MSP_GetTick();
+ 80001ea:	f000 ff91 	bl	8001110 <MSP_GetTick>
+ 80001ee:	4603      	mov	r3, r0
+ 80001f0:	4a81      	ldr	r2, [pc, #516]	; (80003f8 <fms_LeftLightShow+0x230>)
+ 80001f2:	6013      	str	r3, [r2, #0]
+
+		switch(state){
+ 80001f4:	4b82      	ldr	r3, [pc, #520]	; (8000400 <fms_LeftLightShow+0x238>)
+ 80001f6:	781b      	ldrb	r3, [r3, #0]
+ 80001f8:	3b01      	subs	r3, #1
+ 80001fa:	2b0d      	cmp	r3, #13
+ 80001fc:	d848      	bhi.n	8000290 <fms_LeftLightShow+0xc8>
+ 80001fe:	a201      	add	r2, pc, #4	; (adr r2, 8000204 <fms_LeftLightShow+0x3c>)
+ 8000200:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 8000204:	0800023d 	.word	0x0800023d
+ 8000208:	08000243 	.word	0x08000243
+ 800020c:	08000249 	.word	0x08000249
+ 8000210:	0800024f 	.word	0x0800024f
+ 8000214:	08000255 	.word	0x08000255
+ 8000218:	0800025b 	.word	0x0800025b
+ 800021c:	08000261 	.word	0x08000261
+ 8000220:	08000267 	.word	0x08000267
+ 8000224:	0800026d 	.word	0x0800026d
+ 8000228:	08000273 	.word	0x08000273
+ 800022c:	08000279 	.word	0x08000279
+ 8000230:	0800027f 	.word	0x0800027f
+ 8000234:	08000285 	.word	0x08000285
+ 8000238:	0800028b 	.word	0x0800028b
+		case 1:
+			next_state = 2;
+ 800023c:	2302      	movs	r3, #2
+ 800023e:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000240:	e026      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 2:
+			next_state = 3;
+ 8000242:	2303      	movs	r3, #3
+ 8000244:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000246:	e023      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 3:
+			next_state = 4;
+ 8000248:	2304      	movs	r3, #4
+ 800024a:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800024c:	e020      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 4:
+			next_state = 5;
+ 800024e:	2305      	movs	r3, #5
+ 8000250:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000252:	e01d      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 5:
+			next_state = 6;
+ 8000254:	2306      	movs	r3, #6
+ 8000256:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000258:	e01a      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 6:
+			next_state = 7;
+ 800025a:	2307      	movs	r3, #7
+ 800025c:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800025e:	e017      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 7:
+			next_state = 8;
+ 8000260:	2308      	movs	r3, #8
+ 8000262:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000264:	e014      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 8:
+			next_state = 9;
+ 8000266:	2309      	movs	r3, #9
+ 8000268:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800026a:	e011      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 9:
+			next_state = 10;
+ 800026c:	230a      	movs	r3, #10
+ 800026e:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000270:	e00e      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 10:
+			next_state = 11;
+ 8000272:	230b      	movs	r3, #11
+ 8000274:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000276:	e00b      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 11:
+			next_state = 12;
+ 8000278:	230c      	movs	r3, #12
+ 800027a:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800027c:	e008      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 12:
+			next_state = 13;
+ 800027e:	230d      	movs	r3, #13
+ 8000280:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000282:	e005      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 13:
+			next_state = 14;
+ 8000284:	230e      	movs	r3, #14
+ 8000286:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000288:	e002      	b.n	8000290 <fms_LeftLightShow+0xc8>
+		case 14:
+			next_state = 1;
+ 800028a:	2301      	movs	r3, #1
+ 800028c:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800028e:	bf00      	nop
+		}
+
+		state = next_state;
+ 8000290:	4a5b      	ldr	r2, [pc, #364]	; (8000400 <fms_LeftLightShow+0x238>)
+ 8000292:	79fb      	ldrb	r3, [r7, #7]
+ 8000294:	7013      	strb	r3, [r2, #0]
+	}
+	switch(state){
+ 8000296:	4b5a      	ldr	r3, [pc, #360]	; (8000400 <fms_LeftLightShow+0x238>)
+ 8000298:	781b      	ldrb	r3, [r3, #0]
+ 800029a:	3b01      	subs	r3, #1
+ 800029c:	2b0d      	cmp	r3, #13
+ 800029e:	f200 80a7 	bhi.w	80003f0 <fms_LeftLightShow+0x228>
+ 80002a2:	a201      	add	r2, pc, #4	; (adr r2, 80002a8 <fms_LeftLightShow+0xe0>)
+ 80002a4:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 80002a8:	080002e1 	.word	0x080002e1
+ 80002ac:	08000303 	.word	0x08000303
+ 80002b0:	08000325 	.word	0x08000325
+ 80002b4:	08000347 	.word	0x08000347
+ 80002b8:	08000369 	.word	0x08000369
+ 80002bc:	0800038b 	.word	0x0800038b
+ 80002c0:	080003ad 	.word	0x080003ad
+ 80002c4:	080003cf 	.word	0x080003cf
+ 80002c8:	080003ad 	.word	0x080003ad
+ 80002cc:	0800038b 	.word	0x0800038b
+ 80002d0:	08000369 	.word	0x08000369
+ 80002d4:	08000347 	.word	0x08000347
+ 80002d8:	08000325 	.word	0x08000325
+ 80002dc:	08000303 	.word	0x08000303
+	case 1:
+		AUDI_G1D1_On();
+ 80002e0:	f000 fb9c 	bl	8000a1c <AUDI_G1D1_On>
+		AUDI_G1D2_Off();
+ 80002e4:	f000 fc50 	bl	8000b88 <AUDI_G1D2_Off>
+		AUDI_G1D3_Off();
+ 80002e8:	f000 fc5a 	bl	8000ba0 <AUDI_G1D3_Off>
+		AUDI_G1D4_Off();
+ 80002ec:	f000 fc62 	bl	8000bb4 <AUDI_G1D4_Off>
+		AUDI_G1D5_Off();
+ 80002f0:	f000 fc6a 	bl	8000bc8 <AUDI_G1D5_Off>
+		AUDI_G1D6_Off();
+ 80002f4:	f000 fc72 	bl	8000bdc <AUDI_G1D6_Off>
+		AUDI_G1D7_Off();
+ 80002f8:	f000 fc7a 	bl	8000bf0 <AUDI_G1D7_Off>
+		AUDI_G1D8_Off();
+ 80002fc:	f000 fc84 	bl	8000c08 <AUDI_G1D8_Off>
+		break;
+ 8000300:	e076      	b.n	80003f0 <fms_LeftLightShow+0x228>
+	case 2:
+	case 14:
+		AUDI_G1D1_Off();
+ 8000302:	f000 fc35 	bl	8000b70 <AUDI_G1D1_Off>
+		AUDI_G1D2_On();
+ 8000306:	f000 fb95 	bl	8000a34 <AUDI_G1D2_On>
+		AUDI_G1D3_Off();
+ 800030a:	f000 fc49 	bl	8000ba0 <AUDI_G1D3_Off>
+		AUDI_G1D4_Off();
+ 800030e:	f000 fc51 	bl	8000bb4 <AUDI_G1D4_Off>
+		AUDI_G1D5_Off();
+ 8000312:	f000 fc59 	bl	8000bc8 <AUDI_G1D5_Off>
+		AUDI_G1D6_Off();
+ 8000316:	f000 fc61 	bl	8000bdc <AUDI_G1D6_Off>
+		AUDI_G1D7_Off();
+ 800031a:	f000 fc69 	bl	8000bf0 <AUDI_G1D7_Off>
+		AUDI_G1D8_Off();
+ 800031e:	f000 fc73 	bl	8000c08 <AUDI_G1D8_Off>
+		break;
+ 8000322:	e065      	b.n	80003f0 <fms_LeftLightShow+0x228>
+	case 3:
+	case 13:
+		AUDI_G1D1_Off();
+ 8000324:	f000 fc24 	bl	8000b70 <AUDI_G1D1_Off>
+		AUDI_G1D2_Off();
+ 8000328:	f000 fc2e 	bl	8000b88 <AUDI_G1D2_Off>
+		AUDI_G1D3_On();
+ 800032c:	f000 fb8e 	bl	8000a4c <AUDI_G1D3_On>
+		AUDI_G1D4_Off();
+ 8000330:	f000 fc40 	bl	8000bb4 <AUDI_G1D4_Off>
+		AUDI_G1D5_Off();
+ 8000334:	f000 fc48 	bl	8000bc8 <AUDI_G1D5_Off>
+		AUDI_G1D6_Off();
+ 8000338:	f000 fc50 	bl	8000bdc <AUDI_G1D6_Off>
+		AUDI_G1D7_Off();
+ 800033c:	f000 fc58 	bl	8000bf0 <AUDI_G1D7_Off>
+		AUDI_G1D8_Off();
+ 8000340:	f000 fc62 	bl	8000c08 <AUDI_G1D8_Off>
+		break;
+ 8000344:	e054      	b.n	80003f0 <fms_LeftLightShow+0x228>
+	case 4:
+	case 12:
+		AUDI_G1D1_Off();
+ 8000346:	f000 fc13 	bl	8000b70 <AUDI_G1D1_Off>
+		AUDI_G1D2_Off();
+ 800034a:	f000 fc1d 	bl	8000b88 <AUDI_G1D2_Off>
+		AUDI_G1D3_Off();
+ 800034e:	f000 fc27 	bl	8000ba0 <AUDI_G1D3_Off>
+		AUDI_G1D4_On();
+ 8000352:	f000 fb85 	bl	8000a60 <AUDI_G1D4_On>
+		AUDI_G1D5_Off();
+ 8000356:	f000 fc37 	bl	8000bc8 <AUDI_G1D5_Off>
+		AUDI_G1D6_Off();
+ 800035a:	f000 fc3f 	bl	8000bdc <AUDI_G1D6_Off>
+		AUDI_G1D7_Off();
+ 800035e:	f000 fc47 	bl	8000bf0 <AUDI_G1D7_Off>
+		AUDI_G1D8_Off();
+ 8000362:	f000 fc51 	bl	8000c08 <AUDI_G1D8_Off>
+		break;
+ 8000366:	e043      	b.n	80003f0 <fms_LeftLightShow+0x228>
+	case 5:
+	case 11:
+		AUDI_G1D1_Off();
+ 8000368:	f000 fc02 	bl	8000b70 <AUDI_G1D1_Off>
+		AUDI_G1D2_Off();
+ 800036c:	f000 fc0c 	bl	8000b88 <AUDI_G1D2_Off>
+		AUDI_G1D3_Off();
+ 8000370:	f000 fc16 	bl	8000ba0 <AUDI_G1D3_Off>
+		AUDI_G1D4_Off();
+ 8000374:	f000 fc1e 	bl	8000bb4 <AUDI_G1D4_Off>
+		AUDI_G1D5_On();
+ 8000378:	f000 fb7c 	bl	8000a74 <AUDI_G1D5_On>
+		AUDI_G1D6_Off();
+ 800037c:	f000 fc2e 	bl	8000bdc <AUDI_G1D6_Off>
+		AUDI_G1D7_Off();
+ 8000380:	f000 fc36 	bl	8000bf0 <AUDI_G1D7_Off>
+		AUDI_G1D8_Off();
+ 8000384:	f000 fc40 	bl	8000c08 <AUDI_G1D8_Off>
+		break;
+ 8000388:	e032      	b.n	80003f0 <fms_LeftLightShow+0x228>
+	case 6:
+	case 10:
+		AUDI_G1D1_Off();
+ 800038a:	f000 fbf1 	bl	8000b70 <AUDI_G1D1_Off>
+		AUDI_G1D2_Off();
+ 800038e:	f000 fbfb 	bl	8000b88 <AUDI_G1D2_Off>
+		AUDI_G1D3_Off();
+ 8000392:	f000 fc05 	bl	8000ba0 <AUDI_G1D3_Off>
+		AUDI_G1D4_Off();
+ 8000396:	f000 fc0d 	bl	8000bb4 <AUDI_G1D4_Off>
+		AUDI_G1D5_Off();
+ 800039a:	f000 fc15 	bl	8000bc8 <AUDI_G1D5_Off>
+		AUDI_G1D6_On();
+ 800039e:	f000 fb73 	bl	8000a88 <AUDI_G1D6_On>
+		AUDI_G1D7_Off();
+ 80003a2:	f000 fc25 	bl	8000bf0 <AUDI_G1D7_Off>
+		AUDI_G1D8_Off();
+ 80003a6:	f000 fc2f 	bl	8000c08 <AUDI_G1D8_Off>
+		break;
+ 80003aa:	e021      	b.n	80003f0 <fms_LeftLightShow+0x228>
+	case 7:
+	case 9:
+		AUDI_G1D1_Off();
+ 80003ac:	f000 fbe0 	bl	8000b70 <AUDI_G1D1_Off>
+		AUDI_G1D2_Off();
+ 80003b0:	f000 fbea 	bl	8000b88 <AUDI_G1D2_Off>
+		AUDI_G1D3_Off();
+ 80003b4:	f000 fbf4 	bl	8000ba0 <AUDI_G1D3_Off>
+		AUDI_G1D4_Off();
+ 80003b8:	f000 fbfc 	bl	8000bb4 <AUDI_G1D4_Off>
+		AUDI_G1D5_Off();
+ 80003bc:	f000 fc04 	bl	8000bc8 <AUDI_G1D5_Off>
+		AUDI_G1D6_Off();
+ 80003c0:	f000 fc0c 	bl	8000bdc <AUDI_G1D6_Off>
+		AUDI_G1D7_On();
+ 80003c4:	f000 fb6a 	bl	8000a9c <AUDI_G1D7_On>
+		AUDI_G1D8_Off();
+ 80003c8:	f000 fc1e 	bl	8000c08 <AUDI_G1D8_Off>
+		break;
+ 80003cc:	e010      	b.n	80003f0 <fms_LeftLightShow+0x228>
+	case 8:
+		AUDI_G1D1_Off();
+ 80003ce:	f000 fbcf 	bl	8000b70 <AUDI_G1D1_Off>
+		AUDI_G1D2_Off();
+ 80003d2:	f000 fbd9 	bl	8000b88 <AUDI_G1D2_Off>
+		AUDI_G1D3_Off();
+ 80003d6:	f000 fbe3 	bl	8000ba0 <AUDI_G1D3_Off>
+		AUDI_G1D4_Off();
+ 80003da:	f000 fbeb 	bl	8000bb4 <AUDI_G1D4_Off>
+		AUDI_G1D5_Off();
+ 80003de:	f000 fbf3 	bl	8000bc8 <AUDI_G1D5_Off>
+		AUDI_G1D6_Off();
+ 80003e2:	f000 fbfb 	bl	8000bdc <AUDI_G1D6_Off>
+		AUDI_G1D7_Off();
+ 80003e6:	f000 fc03 	bl	8000bf0 <AUDI_G1D7_Off>
+		AUDI_G1D8_On();
+ 80003ea:	f000 fb63 	bl	8000ab4 <AUDI_G1D8_On>
+		break;
+ 80003ee:	bf00      	nop
+	}
+}
+ 80003f0:	bf00      	nop
+ 80003f2:	3708      	adds	r7, #8
+ 80003f4:	46bd      	mov	sp, r7
+ 80003f6:	bd80      	pop	{r7, pc}
+ 80003f8:	2000002c 	.word	0x2000002c
+ 80003fc:	20000000 	.word	0x20000000
+ 8000400:	20000004 	.word	0x20000004
+
+08000404 <fms_RightLightShow>:
+
+
+void fms_RightLightShow(void){
+ 8000404:	b580      	push	{r7, lr}
+ 8000406:	b082      	sub	sp, #8
+ 8000408:	af00      	add	r7, sp, #0
+	static uint32_t lastTick = 0;
+	static uint8_t state = 1;
+	uint8_t next_state;
+
+	if (MSP_GetTick() - lastTick >= beat/8){
+ 800040a:	f000 fe81 	bl	8001110 <MSP_GetTick>
+ 800040e:	4602      	mov	r2, r0
+ 8000410:	4b88      	ldr	r3, [pc, #544]	; (8000634 <fms_RightLightShow+0x230>)
+ 8000412:	681b      	ldr	r3, [r3, #0]
+ 8000414:	1ad2      	subs	r2, r2, r3
+ 8000416:	4b88      	ldr	r3, [pc, #544]	; (8000638 <fms_RightLightShow+0x234>)
+ 8000418:	681b      	ldr	r3, [r3, #0]
+ 800041a:	2b00      	cmp	r3, #0
+ 800041c:	da00      	bge.n	8000420 <fms_RightLightShow+0x1c>
+ 800041e:	3307      	adds	r3, #7
+ 8000420:	10db      	asrs	r3, r3, #3
+ 8000422:	429a      	cmp	r2, r3
+ 8000424:	d355      	bcc.n	80004d2 <fms_RightLightShow+0xce>
+		lastTick = MSP_GetTick();
+ 8000426:	f000 fe73 	bl	8001110 <MSP_GetTick>
+ 800042a:	4603      	mov	r3, r0
+ 800042c:	4a81      	ldr	r2, [pc, #516]	; (8000634 <fms_RightLightShow+0x230>)
+ 800042e:	6013      	str	r3, [r2, #0]
+
+		switch(state){
+ 8000430:	4b82      	ldr	r3, [pc, #520]	; (800063c <fms_RightLightShow+0x238>)
+ 8000432:	781b      	ldrb	r3, [r3, #0]
+ 8000434:	3b01      	subs	r3, #1
+ 8000436:	2b0d      	cmp	r3, #13
+ 8000438:	d848      	bhi.n	80004cc <fms_RightLightShow+0xc8>
+ 800043a:	a201      	add	r2, pc, #4	; (adr r2, 8000440 <fms_RightLightShow+0x3c>)
+ 800043c:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 8000440:	08000479 	.word	0x08000479
+ 8000444:	0800047f 	.word	0x0800047f
+ 8000448:	08000485 	.word	0x08000485
+ 800044c:	0800048b 	.word	0x0800048b
+ 8000450:	08000491 	.word	0x08000491
+ 8000454:	08000497 	.word	0x08000497
+ 8000458:	0800049d 	.word	0x0800049d
+ 800045c:	080004a3 	.word	0x080004a3
+ 8000460:	080004a9 	.word	0x080004a9
+ 8000464:	080004af 	.word	0x080004af
+ 8000468:	080004b5 	.word	0x080004b5
+ 800046c:	080004bb 	.word	0x080004bb
+ 8000470:	080004c1 	.word	0x080004c1
+ 8000474:	080004c7 	.word	0x080004c7
+		case 1:
+			next_state = 2;
+ 8000478:	2302      	movs	r3, #2
+ 800047a:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800047c:	e026      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 2:
+			next_state = 3;
+ 800047e:	2303      	movs	r3, #3
+ 8000480:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000482:	e023      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 3:
+			next_state = 4;
+ 8000484:	2304      	movs	r3, #4
+ 8000486:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000488:	e020      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 4:
+			next_state = 5;
+ 800048a:	2305      	movs	r3, #5
+ 800048c:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800048e:	e01d      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 5:
+			next_state = 6;
+ 8000490:	2306      	movs	r3, #6
+ 8000492:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000494:	e01a      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 6:
+			next_state = 7;
+ 8000496:	2307      	movs	r3, #7
+ 8000498:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800049a:	e017      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 7:
+			next_state = 8;
+ 800049c:	2308      	movs	r3, #8
+ 800049e:	71fb      	strb	r3, [r7, #7]
+			break;
+ 80004a0:	e014      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 8:
+			next_state = 9;
+ 80004a2:	2309      	movs	r3, #9
+ 80004a4:	71fb      	strb	r3, [r7, #7]
+			break;
+ 80004a6:	e011      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 9:
+			next_state = 10;
+ 80004a8:	230a      	movs	r3, #10
+ 80004aa:	71fb      	strb	r3, [r7, #7]
+			break;
+ 80004ac:	e00e      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 10:
+			next_state = 11;
+ 80004ae:	230b      	movs	r3, #11
+ 80004b0:	71fb      	strb	r3, [r7, #7]
+			break;
+ 80004b2:	e00b      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 11:
+			next_state = 12;
+ 80004b4:	230c      	movs	r3, #12
+ 80004b6:	71fb      	strb	r3, [r7, #7]
+			break;
+ 80004b8:	e008      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 12:
+			next_state = 13;
+ 80004ba:	230d      	movs	r3, #13
+ 80004bc:	71fb      	strb	r3, [r7, #7]
+			break;
+ 80004be:	e005      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 13:
+			next_state = 14;
+ 80004c0:	230e      	movs	r3, #14
+ 80004c2:	71fb      	strb	r3, [r7, #7]
+			break;
+ 80004c4:	e002      	b.n	80004cc <fms_RightLightShow+0xc8>
+		case 14:
+			next_state = 1;
+ 80004c6:	2301      	movs	r3, #1
+ 80004c8:	71fb      	strb	r3, [r7, #7]
+			break;
+ 80004ca:	bf00      	nop
+		}
+
+		state = next_state;
+ 80004cc:	4a5b      	ldr	r2, [pc, #364]	; (800063c <fms_RightLightShow+0x238>)
+ 80004ce:	79fb      	ldrb	r3, [r7, #7]
+ 80004d0:	7013      	strb	r3, [r2, #0]
+	}
+	switch(state){
+ 80004d2:	4b5a      	ldr	r3, [pc, #360]	; (800063c <fms_RightLightShow+0x238>)
+ 80004d4:	781b      	ldrb	r3, [r3, #0]
+ 80004d6:	3b01      	subs	r3, #1
+ 80004d8:	2b0d      	cmp	r3, #13
+ 80004da:	f200 80a7 	bhi.w	800062c <fms_RightLightShow+0x228>
+ 80004de:	a201      	add	r2, pc, #4	; (adr r2, 80004e4 <fms_RightLightShow+0xe0>)
+ 80004e0:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 80004e4:	0800051d 	.word	0x0800051d
+ 80004e8:	0800053f 	.word	0x0800053f
+ 80004ec:	08000561 	.word	0x08000561
+ 80004f0:	08000583 	.word	0x08000583
+ 80004f4:	080005a5 	.word	0x080005a5
+ 80004f8:	080005c7 	.word	0x080005c7
+ 80004fc:	080005e9 	.word	0x080005e9
+ 8000500:	0800060b 	.word	0x0800060b
+ 8000504:	080005e9 	.word	0x080005e9
+ 8000508:	080005c7 	.word	0x080005c7
+ 800050c:	080005a5 	.word	0x080005a5
+ 8000510:	08000583 	.word	0x08000583
+ 8000514:	08000561 	.word	0x08000561
+ 8000518:	0800053f 	.word	0x0800053f
+	case 1:
+		AUDI_G2D1_On();
+ 800051c:	f000 fad4 	bl	8000ac8 <AUDI_G2D1_On>
+		AUDI_G2D2_Off();
+ 8000520:	f000 fb86 	bl	8000c30 <AUDI_G2D2_Off>
+		AUDI_G2D3_Off();
+ 8000524:	f000 fb8e 	bl	8000c44 <AUDI_G2D3_Off>
+		AUDI_G2D4_Off();
+ 8000528:	f000 fb98 	bl	8000c5c <AUDI_G2D4_Off>
+		AUDI_G2D5_Off();
+ 800052c:	f000 fba0 	bl	8000c70 <AUDI_G2D5_Off>
+		AUDI_G2D6_Off();
+ 8000530:	f000 fba8 	bl	8000c84 <AUDI_G2D6_Off>
+		AUDI_G2D7_Off();
+ 8000534:	f000 fbb0 	bl	8000c98 <AUDI_G2D7_Off>
+		AUDI_G2D8_Off();
+ 8000538:	f000 fbb8 	bl	8000cac <AUDI_G2D8_Off>
+		break;
+ 800053c:	e076      	b.n	800062c <fms_RightLightShow+0x228>
+	case 2:
+	case 14:
+		AUDI_G2D1_Off();
+ 800053e:	f000 fb6d 	bl	8000c1c <AUDI_G2D1_Off>
+		AUDI_G2D2_On();
+ 8000542:	f000 facb 	bl	8000adc <AUDI_G2D2_On>
+		AUDI_G2D3_Off();
+ 8000546:	f000 fb7d 	bl	8000c44 <AUDI_G2D3_Off>
+		AUDI_G2D4_Off();
+ 800054a:	f000 fb87 	bl	8000c5c <AUDI_G2D4_Off>
+		AUDI_G2D5_Off();
+ 800054e:	f000 fb8f 	bl	8000c70 <AUDI_G2D5_Off>
+		AUDI_G2D6_Off();
+ 8000552:	f000 fb97 	bl	8000c84 <AUDI_G2D6_Off>
+		AUDI_G2D7_Off();
+ 8000556:	f000 fb9f 	bl	8000c98 <AUDI_G2D7_Off>
+		AUDI_G2D8_Off();
+ 800055a:	f000 fba7 	bl	8000cac <AUDI_G2D8_Off>
+		break;
+ 800055e:	e065      	b.n	800062c <fms_RightLightShow+0x228>
+	case 3:
+	case 13:
+		AUDI_G2D1_Off();
+ 8000560:	f000 fb5c 	bl	8000c1c <AUDI_G2D1_Off>
+		AUDI_G2D2_Off();
+ 8000564:	f000 fb64 	bl	8000c30 <AUDI_G2D2_Off>
+		AUDI_G2D3_On();
+ 8000568:	f000 fac2 	bl	8000af0 <AUDI_G2D3_On>
+		AUDI_G2D4_Off();
+ 800056c:	f000 fb76 	bl	8000c5c <AUDI_G2D4_Off>
+		AUDI_G2D5_Off();
+ 8000570:	f000 fb7e 	bl	8000c70 <AUDI_G2D5_Off>
+		AUDI_G2D6_Off();
+ 8000574:	f000 fb86 	bl	8000c84 <AUDI_G2D6_Off>
+		AUDI_G2D7_Off();
+ 8000578:	f000 fb8e 	bl	8000c98 <AUDI_G2D7_Off>
+		AUDI_G2D8_Off();
+ 800057c:	f000 fb96 	bl	8000cac <AUDI_G2D8_Off>
+		break;
+ 8000580:	e054      	b.n	800062c <fms_RightLightShow+0x228>
+	case 4:
+	case 12:
+		AUDI_G2D1_Off();
+ 8000582:	f000 fb4b 	bl	8000c1c <AUDI_G2D1_Off>
+		AUDI_G2D2_Off();
+ 8000586:	f000 fb53 	bl	8000c30 <AUDI_G2D2_Off>
+		AUDI_G2D3_Off();
+ 800058a:	f000 fb5b 	bl	8000c44 <AUDI_G2D3_Off>
+		AUDI_G2D4_On();
+ 800058e:	f000 fabb 	bl	8000b08 <AUDI_G2D4_On>
+		AUDI_G2D5_Off();
+ 8000592:	f000 fb6d 	bl	8000c70 <AUDI_G2D5_Off>
+		AUDI_G2D6_Off();
+ 8000596:	f000 fb75 	bl	8000c84 <AUDI_G2D6_Off>
+		AUDI_G2D7_Off();
+ 800059a:	f000 fb7d 	bl	8000c98 <AUDI_G2D7_Off>
+		AUDI_G2D8_Off();
+ 800059e:	f000 fb85 	bl	8000cac <AUDI_G2D8_Off>
+		break;
+ 80005a2:	e043      	b.n	800062c <fms_RightLightShow+0x228>
+	case 5:
+	case 11:
+		AUDI_G2D1_Off();
+ 80005a4:	f000 fb3a 	bl	8000c1c <AUDI_G2D1_Off>
+		AUDI_G2D2_Off();
+ 80005a8:	f000 fb42 	bl	8000c30 <AUDI_G2D2_Off>
+		AUDI_G2D3_Off();
+ 80005ac:	f000 fb4a 	bl	8000c44 <AUDI_G2D3_Off>
+		AUDI_G2D4_Off();
+ 80005b0:	f000 fb54 	bl	8000c5c <AUDI_G2D4_Off>
+		AUDI_G2D5_On();
+ 80005b4:	f000 fab2 	bl	8000b1c <AUDI_G2D5_On>
+		AUDI_G2D6_Off();
+ 80005b8:	f000 fb64 	bl	8000c84 <AUDI_G2D6_Off>
+		AUDI_G2D7_Off();
+ 80005bc:	f000 fb6c 	bl	8000c98 <AUDI_G2D7_Off>
+		AUDI_G2D8_Off();
+ 80005c0:	f000 fb74 	bl	8000cac <AUDI_G2D8_Off>
+		break;
+ 80005c4:	e032      	b.n	800062c <fms_RightLightShow+0x228>
+	case 6:
+	case 10:
+		AUDI_G2D1_Off();
+ 80005c6:	f000 fb29 	bl	8000c1c <AUDI_G2D1_Off>
+		AUDI_G2D2_Off();
+ 80005ca:	f000 fb31 	bl	8000c30 <AUDI_G2D2_Off>
+		AUDI_G2D3_Off();
+ 80005ce:	f000 fb39 	bl	8000c44 <AUDI_G2D3_Off>
+		AUDI_G2D4_Off();
+ 80005d2:	f000 fb43 	bl	8000c5c <AUDI_G2D4_Off>
+		AUDI_G2D5_Off();
+ 80005d6:	f000 fb4b 	bl	8000c70 <AUDI_G2D5_Off>
+		AUDI_G2D6_On();
+ 80005da:	f000 faa9 	bl	8000b30 <AUDI_G2D6_On>
+		AUDI_G2D7_Off();
+ 80005de:	f000 fb5b 	bl	8000c98 <AUDI_G2D7_Off>
+		AUDI_G2D8_Off();
+ 80005e2:	f000 fb63 	bl	8000cac <AUDI_G2D8_Off>
+		break;
+ 80005e6:	e021      	b.n	800062c <fms_RightLightShow+0x228>
+	case 7:
+	case 9:
+		AUDI_G2D1_Off();
+ 80005e8:	f000 fb18 	bl	8000c1c <AUDI_G2D1_Off>
+		AUDI_G2D2_Off();
+ 80005ec:	f000 fb20 	bl	8000c30 <AUDI_G2D2_Off>
+		AUDI_G2D3_Off();
+ 80005f0:	f000 fb28 	bl	8000c44 <AUDI_G2D3_Off>
+		AUDI_G2D4_Off();
+ 80005f4:	f000 fb32 	bl	8000c5c <AUDI_G2D4_Off>
+		AUDI_G2D5_Off();
+ 80005f8:	f000 fb3a 	bl	8000c70 <AUDI_G2D5_Off>
+		AUDI_G2D6_Off();
+ 80005fc:	f000 fb42 	bl	8000c84 <AUDI_G2D6_Off>
+		AUDI_G2D7_On();
+ 8000600:	f000 faa0 	bl	8000b44 <AUDI_G2D7_On>
+		AUDI_G2D8_Off();
+ 8000604:	f000 fb52 	bl	8000cac <AUDI_G2D8_Off>
+		break;
+ 8000608:	e010      	b.n	800062c <fms_RightLightShow+0x228>
+	case 8:
+		AUDI_G2D1_Off();
+ 800060a:	f000 fb07 	bl	8000c1c <AUDI_G2D1_Off>
+		AUDI_G2D2_Off();
+ 800060e:	f000 fb0f 	bl	8000c30 <AUDI_G2D2_Off>
+		AUDI_G2D3_Off();
+ 8000612:	f000 fb17 	bl	8000c44 <AUDI_G2D3_Off>
+		AUDI_G2D4_Off();
+ 8000616:	f000 fb21 	bl	8000c5c <AUDI_G2D4_Off>
+		AUDI_G2D5_Off();
+ 800061a:	f000 fb29 	bl	8000c70 <AUDI_G2D5_Off>
+		AUDI_G2D6_Off();
+ 800061e:	f000 fb31 	bl	8000c84 <AUDI_G2D6_Off>
+		AUDI_G2D7_Off();
+ 8000622:	f000 fb39 	bl	8000c98 <AUDI_G2D7_Off>
+		AUDI_G2D8_On();
+ 8000626:	f000 fa97 	bl	8000b58 <AUDI_G2D8_On>
+		break;
+ 800062a:	bf00      	nop
+	}
+}
+ 800062c:	bf00      	nop
+ 800062e:	3708      	adds	r7, #8
+ 8000630:	46bd      	mov	sp, r7
+ 8000632:	bd80      	pop	{r7, pc}
+ 8000634:	20000030 	.word	0x20000030
+ 8000638:	20000000 	.word	0x20000000
+ 800063c:	20000005 	.word	0x20000005
+
+08000640 <fms_DualLightShow>:
+
+void fms_DualLightShow(void){
+ 8000640:	b580      	push	{r7, lr}
+ 8000642:	b082      	sub	sp, #8
+ 8000644:	af00      	add	r7, sp, #0
+	static uint32_t lastTick = 0;
+	static uint8_t state = 1;
+	uint8_t next_state;
+	if (MSP_GetTick() - lastTick >= beat){
+ 8000646:	f000 fd63 	bl	8001110 <MSP_GetTick>
+ 800064a:	4602      	mov	r2, r0
+ 800064c:	4b18      	ldr	r3, [pc, #96]	; (80006b0 <fms_DualLightShow+0x70>)
+ 800064e:	681b      	ldr	r3, [r3, #0]
+ 8000650:	1ad3      	subs	r3, r2, r3
+ 8000652:	4a18      	ldr	r2, [pc, #96]	; (80006b4 <fms_DualLightShow+0x74>)
+ 8000654:	6812      	ldr	r2, [r2, #0]
+ 8000656:	4293      	cmp	r3, r2
+ 8000658:	d314      	bcc.n	8000684 <fms_DualLightShow+0x44>
+		lastTick = MSP_GetTick();
+ 800065a:	f000 fd59 	bl	8001110 <MSP_GetTick>
+ 800065e:	4603      	mov	r3, r0
+ 8000660:	4a13      	ldr	r2, [pc, #76]	; (80006b0 <fms_DualLightShow+0x70>)
+ 8000662:	6013      	str	r3, [r2, #0]
+		switch(state){
+ 8000664:	4b14      	ldr	r3, [pc, #80]	; (80006b8 <fms_DualLightShow+0x78>)
+ 8000666:	781b      	ldrb	r3, [r3, #0]
+ 8000668:	2b01      	cmp	r3, #1
+ 800066a:	d002      	beq.n	8000672 <fms_DualLightShow+0x32>
+ 800066c:	2b02      	cmp	r3, #2
+ 800066e:	d003      	beq.n	8000678 <fms_DualLightShow+0x38>
+ 8000670:	e005      	b.n	800067e <fms_DualLightShow+0x3e>
+		case 1:
+			next_state = 2;
+ 8000672:	2302      	movs	r3, #2
+ 8000674:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000676:	e002      	b.n	800067e <fms_DualLightShow+0x3e>
+		case 2:
+			next_state = 1;
+ 8000678:	2301      	movs	r3, #1
+ 800067a:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800067c:	bf00      	nop
+		}
+		state = next_state;
+ 800067e:	4a0e      	ldr	r2, [pc, #56]	; (80006b8 <fms_DualLightShow+0x78>)
+ 8000680:	79fb      	ldrb	r3, [r7, #7]
+ 8000682:	7013      	strb	r3, [r2, #0]
+	}
+	switch(state){
+ 8000684:	4b0c      	ldr	r3, [pc, #48]	; (80006b8 <fms_DualLightShow+0x78>)
+ 8000686:	781b      	ldrb	r3, [r3, #0]
+ 8000688:	2b01      	cmp	r3, #1
+ 800068a:	d002      	beq.n	8000692 <fms_DualLightShow+0x52>
+ 800068c:	2b02      	cmp	r3, #2
+ 800068e:	d005      	beq.n	800069c <fms_DualLightShow+0x5c>
+	case 2:
+		AUDI_Dx_AllOn();
+		AUDI_BUZZER_On();
+		break;
+	}
+}
+ 8000690:	e009      	b.n	80006a6 <fms_DualLightShow+0x66>
+		AUDI_Dx_AllOff();
+ 8000692:	f000 fb17 	bl	8000cc4 <AUDI_Dx_AllOff>
+		AUDI_BUZZER_Off();
+ 8000696:	f000 f9b7 	bl	8000a08 <AUDI_BUZZER_Off>
+		break;
+ 800069a:	e004      	b.n	80006a6 <fms_DualLightShow+0x66>
+		AUDI_Dx_AllOn();
+ 800069c:	f000 fb36 	bl	8000d0c <AUDI_Dx_AllOn>
+		AUDI_BUZZER_On();
+ 80006a0:	f000 f9a9 	bl	80009f6 <AUDI_BUZZER_On>
+		break;
+ 80006a4:	bf00      	nop
+}
+ 80006a6:	bf00      	nop
+ 80006a8:	3708      	adds	r7, #8
+ 80006aa:	46bd      	mov	sp, r7
+ 80006ac:	bd80      	pop	{r7, pc}
+ 80006ae:	bf00      	nop
+ 80006b0:	20000034 	.word	0x20000034
+ 80006b4:	20000000 	.word	0x20000000
+ 80006b8:	20000006 	.word	0x20000006
+
+080006bc <main>:
+uint8_t S1_Pressed = 0;
+uint8_t S2_Pressed = 0;
+uint8_t S3_Pressed = 0;
+
+
+int main(void) {
+ 80006bc:	b580      	push	{r7, lr}
+ 80006be:	af00      	add	r7, sp, #0
+
+	MSP_Init1msTick();
+ 80006c0:	f000 fd32 	bl	8001128 <MSP_Init1msTick>
+
+	AUDI_Dx_Init();
+ 80006c4:	f000 f91a 	bl	80008fc <AUDI_Dx_Init>
+
+	AUDI_Sx_Init();
+ 80006c8:	f000 fbae 	bl	8000e28 <AUDI_Sx_Init>
+
+	AUDI_BUZZER_Init();
+ 80006cc:	f000 f986 	bl	80009dc <AUDI_BUZZER_Init>
+
+	AUDI_BUZZER_Off();
+ 80006d0:	f000 f99a 	bl	8000a08 <AUDI_BUZZER_Off>
+
+	AUDI_Dx_AllOff();
+ 80006d4:	f000 faf6 	bl	8000cc4 <AUDI_Dx_AllOff>
+
+	for(;;){
+		//Boton 1
+		if (S1_Polling() == 1 && ShowState == 0 && S1_Pressed == 0){
+ 80006d8:	f000 fbee 	bl	8000eb8 <S1_Polling>
+ 80006dc:	4603      	mov	r3, r0
+ 80006de:	2b01      	cmp	r3, #1
+ 80006e0:	d10d      	bne.n	80006fe <main+0x42>
+ 80006e2:	4b46      	ldr	r3, [pc, #280]	; (80007fc <main+0x140>)
+ 80006e4:	781b      	ldrb	r3, [r3, #0]
+ 80006e6:	2b00      	cmp	r3, #0
+ 80006e8:	d109      	bne.n	80006fe <main+0x42>
+ 80006ea:	4b45      	ldr	r3, [pc, #276]	; (8000800 <main+0x144>)
+ 80006ec:	781b      	ldrb	r3, [r3, #0]
+ 80006ee:	2b00      	cmp	r3, #0
+ 80006f0:	d105      	bne.n	80006fe <main+0x42>
+			S1_Pressed = 1;
+ 80006f2:	4b43      	ldr	r3, [pc, #268]	; (8000800 <main+0x144>)
+ 80006f4:	2201      	movs	r2, #1
+ 80006f6:	701a      	strb	r2, [r3, #0]
+			ShowState = 1;
+ 80006f8:	4b40      	ldr	r3, [pc, #256]	; (80007fc <main+0x140>)
+ 80006fa:	2201      	movs	r2, #1
+ 80006fc:	701a      	strb	r2, [r3, #0]
+		}
+
+		if (S1_Pressed == 1 && ShowState == 1){
+ 80006fe:	4b40      	ldr	r3, [pc, #256]	; (8000800 <main+0x144>)
+ 8000700:	781b      	ldrb	r3, [r3, #0]
+ 8000702:	2b01      	cmp	r3, #1
+ 8000704:	d105      	bne.n	8000712 <main+0x56>
+ 8000706:	4b3d      	ldr	r3, [pc, #244]	; (80007fc <main+0x140>)
+ 8000708:	781b      	ldrb	r3, [r3, #0]
+ 800070a:	2b01      	cmp	r3, #1
+ 800070c:	d101      	bne.n	8000712 <main+0x56>
+			fms_LeftLightShow();
+ 800070e:	f7ff fd5b 	bl	80001c8 <fms_LeftLightShow>
+		}
+
+		if (S1_Polling() == 1 && S1_Pressed == 1){
+ 8000712:	f000 fbd1 	bl	8000eb8 <S1_Polling>
+ 8000716:	4603      	mov	r3, r0
+ 8000718:	2b01      	cmp	r3, #1
+ 800071a:	d10b      	bne.n	8000734 <main+0x78>
+ 800071c:	4b38      	ldr	r3, [pc, #224]	; (8000800 <main+0x144>)
+ 800071e:	781b      	ldrb	r3, [r3, #0]
+ 8000720:	2b01      	cmp	r3, #1
+ 8000722:	d107      	bne.n	8000734 <main+0x78>
+			AUDI_Dx_AllOff();
+ 8000724:	f000 face 	bl	8000cc4 <AUDI_Dx_AllOff>
+			S1_Pressed = 0;
+ 8000728:	4b35      	ldr	r3, [pc, #212]	; (8000800 <main+0x144>)
+ 800072a:	2200      	movs	r2, #0
+ 800072c:	701a      	strb	r2, [r3, #0]
+			ShowState = 0;
+ 800072e:	4b33      	ldr	r3, [pc, #204]	; (80007fc <main+0x140>)
+ 8000730:	2200      	movs	r2, #0
+ 8000732:	701a      	strb	r2, [r3, #0]
+		}
+
+		//Boton 2
+		if (S2_Polling() == 1 && ShowState == 0 && S2_Pressed == 0){
+ 8000734:	f000 fc0a 	bl	8000f4c <S2_Polling>
+ 8000738:	4603      	mov	r3, r0
+ 800073a:	2b01      	cmp	r3, #1
+ 800073c:	d10d      	bne.n	800075a <main+0x9e>
+ 800073e:	4b2f      	ldr	r3, [pc, #188]	; (80007fc <main+0x140>)
+ 8000740:	781b      	ldrb	r3, [r3, #0]
+ 8000742:	2b00      	cmp	r3, #0
+ 8000744:	d109      	bne.n	800075a <main+0x9e>
+ 8000746:	4b2f      	ldr	r3, [pc, #188]	; (8000804 <main+0x148>)
+ 8000748:	781b      	ldrb	r3, [r3, #0]
+ 800074a:	2b00      	cmp	r3, #0
+ 800074c:	d105      	bne.n	800075a <main+0x9e>
+			S2_Pressed = 1;
+ 800074e:	4b2d      	ldr	r3, [pc, #180]	; (8000804 <main+0x148>)
+ 8000750:	2201      	movs	r2, #1
+ 8000752:	701a      	strb	r2, [r3, #0]
+			ShowState = 1;
+ 8000754:	4b29      	ldr	r3, [pc, #164]	; (80007fc <main+0x140>)
+ 8000756:	2201      	movs	r2, #1
+ 8000758:	701a      	strb	r2, [r3, #0]
+		}
+
+		if (S2_Pressed == 1 && ShowState == 1){
+ 800075a:	4b2a      	ldr	r3, [pc, #168]	; (8000804 <main+0x148>)
+ 800075c:	781b      	ldrb	r3, [r3, #0]
+ 800075e:	2b01      	cmp	r3, #1
+ 8000760:	d105      	bne.n	800076e <main+0xb2>
+ 8000762:	4b26      	ldr	r3, [pc, #152]	; (80007fc <main+0x140>)
+ 8000764:	781b      	ldrb	r3, [r3, #0]
+ 8000766:	2b01      	cmp	r3, #1
+ 8000768:	d101      	bne.n	800076e <main+0xb2>
+			fms_RightLightShow();
+ 800076a:	f7ff fe4b 	bl	8000404 <fms_RightLightShow>
+		}
+
+		if (S2_Polling()  == 1 && S2_Pressed == 1){
+ 800076e:	f000 fbed 	bl	8000f4c <S2_Polling>
+ 8000772:	4603      	mov	r3, r0
+ 8000774:	2b01      	cmp	r3, #1
+ 8000776:	d10b      	bne.n	8000790 <main+0xd4>
+ 8000778:	4b22      	ldr	r3, [pc, #136]	; (8000804 <main+0x148>)
+ 800077a:	781b      	ldrb	r3, [r3, #0]
+ 800077c:	2b01      	cmp	r3, #1
+ 800077e:	d107      	bne.n	8000790 <main+0xd4>
+			AUDI_Dx_AllOff();
+ 8000780:	f000 faa0 	bl	8000cc4 <AUDI_Dx_AllOff>
+			S2_Pressed = 0;
+ 8000784:	4b1f      	ldr	r3, [pc, #124]	; (8000804 <main+0x148>)
+ 8000786:	2200      	movs	r2, #0
+ 8000788:	701a      	strb	r2, [r3, #0]
+			ShowState = 0;
+ 800078a:	4b1c      	ldr	r3, [pc, #112]	; (80007fc <main+0x140>)
+ 800078c:	2200      	movs	r2, #0
+ 800078e:	701a      	strb	r2, [r3, #0]
+		}
+
+		//Boton 3
+		if (S3_Polling() == 1 && ShowState == 0 && S3_Pressed == 0){
+ 8000790:	f000 fc26 	bl	8000fe0 <S3_Polling>
+ 8000794:	4603      	mov	r3, r0
+ 8000796:	2b01      	cmp	r3, #1
+ 8000798:	d10d      	bne.n	80007b6 <main+0xfa>
+ 800079a:	4b18      	ldr	r3, [pc, #96]	; (80007fc <main+0x140>)
+ 800079c:	781b      	ldrb	r3, [r3, #0]
+ 800079e:	2b00      	cmp	r3, #0
+ 80007a0:	d109      	bne.n	80007b6 <main+0xfa>
+ 80007a2:	4b19      	ldr	r3, [pc, #100]	; (8000808 <main+0x14c>)
+ 80007a4:	781b      	ldrb	r3, [r3, #0]
+ 80007a6:	2b00      	cmp	r3, #0
+ 80007a8:	d105      	bne.n	80007b6 <main+0xfa>
+			S3_Pressed = 1;
+ 80007aa:	4b17      	ldr	r3, [pc, #92]	; (8000808 <main+0x14c>)
+ 80007ac:	2201      	movs	r2, #1
+ 80007ae:	701a      	strb	r2, [r3, #0]
+			ShowState = 1;
+ 80007b0:	4b12      	ldr	r3, [pc, #72]	; (80007fc <main+0x140>)
+ 80007b2:	2201      	movs	r2, #1
+ 80007b4:	701a      	strb	r2, [r3, #0]
+		}
+
+		if (S3_Pressed == 1 && ShowState == 1){
+ 80007b6:	4b14      	ldr	r3, [pc, #80]	; (8000808 <main+0x14c>)
+ 80007b8:	781b      	ldrb	r3, [r3, #0]
+ 80007ba:	2b01      	cmp	r3, #1
+ 80007bc:	d105      	bne.n	80007ca <main+0x10e>
+ 80007be:	4b0f      	ldr	r3, [pc, #60]	; (80007fc <main+0x140>)
+ 80007c0:	781b      	ldrb	r3, [r3, #0]
+ 80007c2:	2b01      	cmp	r3, #1
+ 80007c4:	d101      	bne.n	80007ca <main+0x10e>
+			fms_DualLightShow();
+ 80007c6:	f7ff ff3b 	bl	8000640 <fms_DualLightShow>
+		}
+
+		if (S3_Polling() == 1 && S3_Pressed == 1){
+ 80007ca:	f000 fc09 	bl	8000fe0 <S3_Polling>
+ 80007ce:	4603      	mov	r3, r0
+ 80007d0:	2b01      	cmp	r3, #1
+ 80007d2:	d10b      	bne.n	80007ec <main+0x130>
+ 80007d4:	4b0c      	ldr	r3, [pc, #48]	; (8000808 <main+0x14c>)
+ 80007d6:	781b      	ldrb	r3, [r3, #0]
+ 80007d8:	2b01      	cmp	r3, #1
+ 80007da:	d107      	bne.n	80007ec <main+0x130>
+			AUDI_Dx_AllOff();
+ 80007dc:	f000 fa72 	bl	8000cc4 <AUDI_Dx_AllOff>
+			S3_Pressed = 0;
+ 80007e0:	4b09      	ldr	r3, [pc, #36]	; (8000808 <main+0x14c>)
+ 80007e2:	2200      	movs	r2, #0
+ 80007e4:	701a      	strb	r2, [r3, #0]
+			ShowState = 0;
+ 80007e6:	4b05      	ldr	r3, [pc, #20]	; (80007fc <main+0x140>)
+ 80007e8:	2200      	movs	r2, #0
+ 80007ea:	701a      	strb	r2, [r3, #0]
+		}
+
+		//Buzzer
+		if (ShowState == 0){
+ 80007ec:	4b03      	ldr	r3, [pc, #12]	; (80007fc <main+0x140>)
+ 80007ee:	781b      	ldrb	r3, [r3, #0]
+ 80007f0:	2b00      	cmp	r3, #0
+ 80007f2:	f47f af71 	bne.w	80006d8 <main+0x1c>
+			AUDI_BUZZER_Off();
+ 80007f6:	f000 f907 	bl	8000a08 <AUDI_BUZZER_Off>
+		if (S1_Polling() == 1 && ShowState == 0 && S1_Pressed == 0){
+ 80007fa:	e76d      	b.n	80006d8 <main+0x1c>
+ 80007fc:	20000038 	.word	0x20000038
+ 8000800:	20000039 	.word	0x20000039
+ 8000804:	2000003a 	.word	0x2000003a
+ 8000808:	2000003b 	.word	0x2000003b
+
+0800080c <SysTick_Handler>:
+
+/**
+  * @brief This function handles System tick timer.
+  */
+void SysTick_Handler(void)
+{
+ 800080c:	b580      	push	{r7, lr}
+ 800080e:	af00      	add	r7, sp, #0
+	MSP_Callback_SysTick_Handler();
+ 8000810:	f000 fc70 	bl	80010f4 <MSP_Callback_SysTick_Handler>
+}
+ 8000814:	bf00      	nop
+ 8000816:	bd80      	pop	{r7, pc}
+
+08000818 <LL_AHB2_GRP1_EnableClock>:
+  *
+  *         (*) value not defined in all devices.
+  * @retval None
+*/
+__STATIC_INLINE void LL_AHB2_GRP1_EnableClock(uint32_t Periphs)
+{
+ 8000818:	b480      	push	{r7}
+ 800081a:	b085      	sub	sp, #20
+ 800081c:	af00      	add	r7, sp, #0
+ 800081e:	6078      	str	r0, [r7, #4]
+  __IO uint32_t tmpreg;
+  SET_BIT(RCC->AHB2ENR, Periphs);
+ 8000820:	4b08      	ldr	r3, [pc, #32]	; (8000844 <LL_AHB2_GRP1_EnableClock+0x2c>)
+ 8000822:	6cda      	ldr	r2, [r3, #76]	; 0x4c
+ 8000824:	4907      	ldr	r1, [pc, #28]	; (8000844 <LL_AHB2_GRP1_EnableClock+0x2c>)
+ 8000826:	687b      	ldr	r3, [r7, #4]
+ 8000828:	4313      	orrs	r3, r2
+ 800082a:	64cb      	str	r3, [r1, #76]	; 0x4c
+  /* Delay after an RCC peripheral clock enabling */
+  tmpreg = READ_BIT(RCC->AHB2ENR, Periphs);
+ 800082c:	4b05      	ldr	r3, [pc, #20]	; (8000844 <LL_AHB2_GRP1_EnableClock+0x2c>)
+ 800082e:	6cda      	ldr	r2, [r3, #76]	; 0x4c
+ 8000830:	687b      	ldr	r3, [r7, #4]
+ 8000832:	4013      	ands	r3, r2
+ 8000834:	60fb      	str	r3, [r7, #12]
+  (void)tmpreg;
+ 8000836:	68fb      	ldr	r3, [r7, #12]
+}
+ 8000838:	bf00      	nop
+ 800083a:	3714      	adds	r7, #20
+ 800083c:	46bd      	mov	sp, r7
+ 800083e:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000842:	4770      	bx	lr
+ 8000844:	40021000 	.word	0x40021000
+
+08000848 <LL_GPIO_SetPinMode>:
+  *         @arg @ref LL_GPIO_MODE_ALTERNATE
+  *         @arg @ref LL_GPIO_MODE_ANALOG
+  * @retval None
+  */
+__STATIC_INLINE void LL_GPIO_SetPinMode(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_t Mode)
+{
+ 8000848:	b480      	push	{r7}
+ 800084a:	b08b      	sub	sp, #44	; 0x2c
+ 800084c:	af00      	add	r7, sp, #0
+ 800084e:	60f8      	str	r0, [r7, #12]
+ 8000850:	60b9      	str	r1, [r7, #8]
+ 8000852:	607a      	str	r2, [r7, #4]
+  MODIFY_REG(GPIOx->MODER, (GPIO_MODER_MODE0 << (POSITION_VAL(Pin) * 2U)), (Mode << (POSITION_VAL(Pin) * 2U)));
+ 8000854:	68fb      	ldr	r3, [r7, #12]
+ 8000856:	681a      	ldr	r2, [r3, #0]
+ 8000858:	68bb      	ldr	r3, [r7, #8]
+ 800085a:	617b      	str	r3, [r7, #20]
+  uint32_t result;
+
+#if ((defined (__ARM_ARCH_7M__      ) && (__ARM_ARCH_7M__      == 1)) || \
+     (defined (__ARM_ARCH_7EM__     ) && (__ARM_ARCH_7EM__     == 1)) || \
+     (defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1))    )
+   __ASM volatile ("rbit %0, %1" : "=r" (result) : "r" (value) );
+ 800085c:	697b      	ldr	r3, [r7, #20]
+ 800085e:	fa93 f3a3 	rbit	r3, r3
+ 8000862:	613b      	str	r3, [r7, #16]
+    result |= value & 1U;
+    s--;
+  }
+  result <<= s;                        /* shift when v's highest bits are zero */
+#endif
+  return result;
+ 8000864:	693b      	ldr	r3, [r7, #16]
+ 8000866:	61bb      	str	r3, [r7, #24]
+     optimisations using the logic "value was passed to __builtin_clz, so it
+     is non-zero".
+     ARM GCC 7.3 and possibly earlier will optimise this test away, leaving a
+     single CLZ instruction.
+   */
+  if (value == 0U)
+ 8000868:	69bb      	ldr	r3, [r7, #24]
+ 800086a:	2b00      	cmp	r3, #0
+ 800086c:	d101      	bne.n	8000872 <LL_GPIO_SetPinMode+0x2a>
+  {
+    return 32U;
+ 800086e:	2320      	movs	r3, #32
+ 8000870:	e003      	b.n	800087a <LL_GPIO_SetPinMode+0x32>
+  }
+  return __builtin_clz(value);
+ 8000872:	69bb      	ldr	r3, [r7, #24]
+ 8000874:	fab3 f383 	clz	r3, r3
+ 8000878:	b2db      	uxtb	r3, r3
+ 800087a:	005b      	lsls	r3, r3, #1
+ 800087c:	2103      	movs	r1, #3
+ 800087e:	fa01 f303 	lsl.w	r3, r1, r3
+ 8000882:	43db      	mvns	r3, r3
+ 8000884:	401a      	ands	r2, r3
+ 8000886:	68bb      	ldr	r3, [r7, #8]
+ 8000888:	623b      	str	r3, [r7, #32]
+   __ASM volatile ("rbit %0, %1" : "=r" (result) : "r" (value) );
+ 800088a:	6a3b      	ldr	r3, [r7, #32]
+ 800088c:	fa93 f3a3 	rbit	r3, r3
+ 8000890:	61fb      	str	r3, [r7, #28]
+  return result;
+ 8000892:	69fb      	ldr	r3, [r7, #28]
+ 8000894:	627b      	str	r3, [r7, #36]	; 0x24
+  if (value == 0U)
+ 8000896:	6a7b      	ldr	r3, [r7, #36]	; 0x24
+ 8000898:	2b00      	cmp	r3, #0
+ 800089a:	d101      	bne.n	80008a0 <LL_GPIO_SetPinMode+0x58>
+    return 32U;
+ 800089c:	2320      	movs	r3, #32
+ 800089e:	e003      	b.n	80008a8 <LL_GPIO_SetPinMode+0x60>
+  return __builtin_clz(value);
+ 80008a0:	6a7b      	ldr	r3, [r7, #36]	; 0x24
+ 80008a2:	fab3 f383 	clz	r3, r3
+ 80008a6:	b2db      	uxtb	r3, r3
+ 80008a8:	005b      	lsls	r3, r3, #1
+ 80008aa:	6879      	ldr	r1, [r7, #4]
+ 80008ac:	fa01 f303 	lsl.w	r3, r1, r3
+ 80008b0:	431a      	orrs	r2, r3
+ 80008b2:	68fb      	ldr	r3, [r7, #12]
+ 80008b4:	601a      	str	r2, [r3, #0]
+}
+ 80008b6:	bf00      	nop
+ 80008b8:	372c      	adds	r7, #44	; 0x2c
+ 80008ba:	46bd      	mov	sp, r7
+ 80008bc:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80008c0:	4770      	bx	lr
+
+080008c2 <LL_GPIO_SetOutputPin>:
+  *         @arg @ref LL_GPIO_PIN_15
+  *         @arg @ref LL_GPIO_PIN_ALL
+  * @retval None
+  */
+__STATIC_INLINE void LL_GPIO_SetOutputPin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
+{
+ 80008c2:	b480      	push	{r7}
+ 80008c4:	b083      	sub	sp, #12
+ 80008c6:	af00      	add	r7, sp, #0
+ 80008c8:	6078      	str	r0, [r7, #4]
+ 80008ca:	6039      	str	r1, [r7, #0]
+  WRITE_REG(GPIOx->BSRR, PinMask);
+ 80008cc:	687b      	ldr	r3, [r7, #4]
+ 80008ce:	683a      	ldr	r2, [r7, #0]
+ 80008d0:	619a      	str	r2, [r3, #24]
+}
+ 80008d2:	bf00      	nop
+ 80008d4:	370c      	adds	r7, #12
+ 80008d6:	46bd      	mov	sp, r7
+ 80008d8:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80008dc:	4770      	bx	lr
+
+080008de <LL_GPIO_ResetOutputPin>:
+  *         @arg @ref LL_GPIO_PIN_15
+  *         @arg @ref LL_GPIO_PIN_ALL
+  * @retval None
+  */
+__STATIC_INLINE void LL_GPIO_ResetOutputPin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
+{
+ 80008de:	b480      	push	{r7}
+ 80008e0:	b083      	sub	sp, #12
+ 80008e2:	af00      	add	r7, sp, #0
+ 80008e4:	6078      	str	r0, [r7, #4]
+ 80008e6:	6039      	str	r1, [r7, #0]
+  WRITE_REG(GPIOx->BRR, PinMask);
+ 80008e8:	687b      	ldr	r3, [r7, #4]
+ 80008ea:	683a      	ldr	r2, [r7, #0]
+ 80008ec:	629a      	str	r2, [r3, #40]	; 0x28
+}
+ 80008ee:	bf00      	nop
+ 80008f0:	370c      	adds	r7, #12
+ 80008f2:	46bd      	mov	sp, r7
+ 80008f4:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80008f8:	4770      	bx	lr
+	...
+
+080008fc <AUDI_Dx_Init>:
+
+
+
+
+
+void AUDI_Dx_Init(void){
+ 80008fc:	b580      	push	{r7, lr}
+ 80008fe:	af00      	add	r7, sp, #0
+	LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
+ 8000900:	2001      	movs	r0, #1
+ 8000902:	f7ff ff89 	bl	8000818 <LL_AHB2_GRP1_EnableClock>
+	LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
+ 8000906:	2002      	movs	r0, #2
+ 8000908:	f7ff ff86 	bl	8000818 <LL_AHB2_GRP1_EnableClock>
+	LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOC);
+ 800090c:	2004      	movs	r0, #4
+ 800090e:	f7ff ff83 	bl	8000818 <LL_AHB2_GRP1_EnableClock>
+
+
+	LL_GPIO_SetPinMode(G1D1_GPIO, G1D1_PIN, LL_GPIO_MODE_OUTPUT);
+ 8000912:	2201      	movs	r2, #1
+ 8000914:	f44f 6180 	mov.w	r1, #1024	; 0x400
+ 8000918:	482e      	ldr	r0, [pc, #184]	; (80009d4 <AUDI_Dx_Init+0xd8>)
+ 800091a:	f7ff ff95 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G1D2_GPIO, G1D2_PIN, LL_GPIO_MODE_OUTPUT);
+ 800091e:	2201      	movs	r2, #1
+ 8000920:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 8000924:	482b      	ldr	r0, [pc, #172]	; (80009d4 <AUDI_Dx_Init+0xd8>)
+ 8000926:	f7ff ff8f 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G1D3_GPIO, G1D3_PIN, LL_GPIO_MODE_OUTPUT);
+ 800092a:	2201      	movs	r2, #1
+ 800092c:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 8000930:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000934:	f7ff ff88 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G1D4_GPIO, G1D4_PIN, LL_GPIO_MODE_OUTPUT);
+ 8000938:	2201      	movs	r2, #1
+ 800093a:	f44f 4180 	mov.w	r1, #16384	; 0x4000
+ 800093e:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000942:	f7ff ff81 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G1D5_GPIO, G1D5_PIN, LL_GPIO_MODE_OUTPUT);
+ 8000946:	2201      	movs	r2, #1
+ 8000948:	f44f 4100 	mov.w	r1, #32768	; 0x8000
+ 800094c:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000950:	f7ff ff7a 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G1D6_GPIO, G1D6_PIN, LL_GPIO_MODE_OUTPUT);
+ 8000954:	2201      	movs	r2, #1
+ 8000956:	2180      	movs	r1, #128	; 0x80
+ 8000958:	481f      	ldr	r0, [pc, #124]	; (80009d8 <AUDI_Dx_Init+0xdc>)
+ 800095a:	f7ff ff75 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G1D7_GPIO, G1D7_PIN, LL_GPIO_MODE_OUTPUT);
+ 800095e:	2201      	movs	r2, #1
+ 8000960:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 8000964:	481b      	ldr	r0, [pc, #108]	; (80009d4 <AUDI_Dx_Init+0xd8>)
+ 8000966:	f7ff ff6f 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G1D8_GPIO, G1D8_PIN, LL_GPIO_MODE_OUTPUT);
+ 800096a:	2201      	movs	r2, #1
+ 800096c:	2110      	movs	r1, #16
+ 800096e:	4819      	ldr	r0, [pc, #100]	; (80009d4 <AUDI_Dx_Init+0xd8>)
+ 8000970:	f7ff ff6a 	bl	8000848 <LL_GPIO_SetPinMode>
+
+	LL_GPIO_SetPinMode(G2D1_GPIO, G2D1_PIN, LL_GPIO_MODE_OUTPUT);
+ 8000974:	2201      	movs	r2, #1
+ 8000976:	2104      	movs	r1, #4
+ 8000978:	4816      	ldr	r0, [pc, #88]	; (80009d4 <AUDI_Dx_Init+0xd8>)
+ 800097a:	f7ff ff65 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G2D2_GPIO, G2D2_PIN, LL_GPIO_MODE_OUTPUT);
+ 800097e:	2201      	movs	r2, #1
+ 8000980:	2108      	movs	r1, #8
+ 8000982:	4814      	ldr	r0, [pc, #80]	; (80009d4 <AUDI_Dx_Init+0xd8>)
+ 8000984:	f7ff ff60 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G2D3_GPIO, G2D3_PIN, LL_GPIO_MODE_OUTPUT);
+ 8000988:	2201      	movs	r2, #1
+ 800098a:	f44f 7180 	mov.w	r1, #256	; 0x100
+ 800098e:	4811      	ldr	r0, [pc, #68]	; (80009d4 <AUDI_Dx_Init+0xd8>)
+ 8000990:	f7ff ff5a 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G2D4_GPIO, G2D4_PIN, LL_GPIO_MODE_OUTPUT);
+ 8000994:	2201      	movs	r2, #1
+ 8000996:	2140      	movs	r1, #64	; 0x40
+ 8000998:	480e      	ldr	r0, [pc, #56]	; (80009d4 <AUDI_Dx_Init+0xd8>)
+ 800099a:	f7ff ff55 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G2D5_GPIO, G2D5_PIN, LL_GPIO_MODE_OUTPUT);
+ 800099e:	2201      	movs	r2, #1
+ 80009a0:	2120      	movs	r1, #32
+ 80009a2:	480c      	ldr	r0, [pc, #48]	; (80009d4 <AUDI_Dx_Init+0xd8>)
+ 80009a4:	f7ff ff50 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G2D6_GPIO, G2D6_PIN, LL_GPIO_MODE_OUTPUT);
+ 80009a8:	2201      	movs	r2, #1
+ 80009aa:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 80009ae:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 80009b2:	f7ff ff49 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G2D7_GPIO, G2D7_PIN, LL_GPIO_MODE_OUTPUT);
+ 80009b6:	2201      	movs	r2, #1
+ 80009b8:	f44f 6100 	mov.w	r1, #2048	; 0x800
+ 80009bc:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 80009c0:	f7ff ff42 	bl	8000848 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(G2D8_GPIO, G2D8_PIN, LL_GPIO_MODE_OUTPUT);
+ 80009c4:	2201      	movs	r2, #1
+ 80009c6:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 80009ca:	4803      	ldr	r0, [pc, #12]	; (80009d8 <AUDI_Dx_Init+0xdc>)
+ 80009cc:	f7ff ff3c 	bl	8000848 <LL_GPIO_SetPinMode>
+
+}
+ 80009d0:	bf00      	nop
+ 80009d2:	bd80      	pop	{r7, pc}
+ 80009d4:	48000800 	.word	0x48000800
+ 80009d8:	48000400 	.word	0x48000400
+
+080009dc <AUDI_BUZZER_Init>:
+
+//Buzzer control
+void AUDI_BUZZER_Init(void){
+ 80009dc:	b580      	push	{r7, lr}
+ 80009de:	af00      	add	r7, sp, #0
+	LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
+ 80009e0:	2001      	movs	r0, #1
+ 80009e2:	f7ff ff19 	bl	8000818 <LL_AHB2_GRP1_EnableClock>
+	LL_GPIO_SetPinMode(BUZZER_GPIO, BUZZER_PIN, LL_GPIO_MODE_OUTPUT);
+ 80009e6:	2201      	movs	r2, #1
+ 80009e8:	2108      	movs	r1, #8
+ 80009ea:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 80009ee:	f7ff ff2b 	bl	8000848 <LL_GPIO_SetPinMode>
+}
+ 80009f2:	bf00      	nop
+ 80009f4:	bd80      	pop	{r7, pc}
+
+080009f6 <AUDI_BUZZER_On>:
+
+void AUDI_BUZZER_On(void){
+ 80009f6:	b580      	push	{r7, lr}
+ 80009f8:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(BUZZER_GPIO, BUZZER_PIN);
+ 80009fa:	2108      	movs	r1, #8
+ 80009fc:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000a00:	f7ff ff6d 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000a04:	bf00      	nop
+ 8000a06:	bd80      	pop	{r7, pc}
+
+08000a08 <AUDI_BUZZER_Off>:
+
+void AUDI_BUZZER_Off(void){
+ 8000a08:	b580      	push	{r7, lr}
+ 8000a0a:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(BUZZER_GPIO, BUZZER_PIN);
+ 8000a0c:	2108      	movs	r1, #8
+ 8000a0e:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000a12:	f7ff ff56 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000a16:	bf00      	nop
+ 8000a18:	bd80      	pop	{r7, pc}
+	...
+
+08000a1c <AUDI_G1D1_On>:
+//LEd On
+//Set Izquierdo de LEDs
+void AUDI_G1D1_On(){
+ 8000a1c:	b580      	push	{r7, lr}
+ 8000a1e:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G1D1_GPIO, G1D1_PIN);
+ 8000a20:	f44f 6180 	mov.w	r1, #1024	; 0x400
+ 8000a24:	4802      	ldr	r0, [pc, #8]	; (8000a30 <AUDI_G1D1_On+0x14>)
+ 8000a26:	f7ff ff5a 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000a2a:	bf00      	nop
+ 8000a2c:	bd80      	pop	{r7, pc}
+ 8000a2e:	bf00      	nop
+ 8000a30:	48000800 	.word	0x48000800
+
+08000a34 <AUDI_G1D2_On>:
+
+void AUDI_G1D2_On(){
+ 8000a34:	b580      	push	{r7, lr}
+ 8000a36:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G1D2_GPIO, G1D2_PIN);
+ 8000a38:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 8000a3c:	4802      	ldr	r0, [pc, #8]	; (8000a48 <AUDI_G1D2_On+0x14>)
+ 8000a3e:	f7ff ff4e 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000a42:	bf00      	nop
+ 8000a44:	bd80      	pop	{r7, pc}
+ 8000a46:	bf00      	nop
+ 8000a48:	48000800 	.word	0x48000800
+
+08000a4c <AUDI_G1D3_On>:
+
+void AUDI_G1D3_On(){
+ 8000a4c:	b580      	push	{r7, lr}
+ 8000a4e:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G1D3_GPIO, G1D3_PIN);
+ 8000a50:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 8000a54:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000a58:	f7ff ff41 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000a5c:	bf00      	nop
+ 8000a5e:	bd80      	pop	{r7, pc}
+
+08000a60 <AUDI_G1D4_On>:
+
+void AUDI_G1D4_On(){
+ 8000a60:	b580      	push	{r7, lr}
+ 8000a62:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G1D4_GPIO, G1D4_PIN);
+ 8000a64:	f44f 4180 	mov.w	r1, #16384	; 0x4000
+ 8000a68:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000a6c:	f7ff ff37 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000a70:	bf00      	nop
+ 8000a72:	bd80      	pop	{r7, pc}
+
+08000a74 <AUDI_G1D5_On>:
+
+void AUDI_G1D5_On(){
+ 8000a74:	b580      	push	{r7, lr}
+ 8000a76:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G1D5_GPIO, G1D5_PIN);
+ 8000a78:	f44f 4100 	mov.w	r1, #32768	; 0x8000
+ 8000a7c:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000a80:	f7ff ff2d 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000a84:	bf00      	nop
+ 8000a86:	bd80      	pop	{r7, pc}
+
+08000a88 <AUDI_G1D6_On>:
+
+void AUDI_G1D6_On(){
+ 8000a88:	b580      	push	{r7, lr}
+ 8000a8a:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G1D6_GPIO, G1D6_PIN);
+ 8000a8c:	2180      	movs	r1, #128	; 0x80
+ 8000a8e:	4802      	ldr	r0, [pc, #8]	; (8000a98 <AUDI_G1D6_On+0x10>)
+ 8000a90:	f7ff ff25 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000a94:	bf00      	nop
+ 8000a96:	bd80      	pop	{r7, pc}
+ 8000a98:	48000400 	.word	0x48000400
+
+08000a9c <AUDI_G1D7_On>:
+
+void AUDI_G1D7_On(){
+ 8000a9c:	b580      	push	{r7, lr}
+ 8000a9e:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G1D7_GPIO, G1D7_PIN);
+ 8000aa0:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 8000aa4:	4802      	ldr	r0, [pc, #8]	; (8000ab0 <AUDI_G1D7_On+0x14>)
+ 8000aa6:	f7ff ff1a 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000aaa:	bf00      	nop
+ 8000aac:	bd80      	pop	{r7, pc}
+ 8000aae:	bf00      	nop
+ 8000ab0:	48000800 	.word	0x48000800
+
+08000ab4 <AUDI_G1D8_On>:
+
+void AUDI_G1D8_On(){
+ 8000ab4:	b580      	push	{r7, lr}
+ 8000ab6:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G1D8_GPIO, G1D8_PIN);
+ 8000ab8:	2110      	movs	r1, #16
+ 8000aba:	4802      	ldr	r0, [pc, #8]	; (8000ac4 <AUDI_G1D8_On+0x10>)
+ 8000abc:	f7ff ff0f 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000ac0:	bf00      	nop
+ 8000ac2:	bd80      	pop	{r7, pc}
+ 8000ac4:	48000800 	.word	0x48000800
+
+08000ac8 <AUDI_G2D1_On>:
+
+
+//Set Derecho de LEDs
+void AUDI_G2D1_On(){
+ 8000ac8:	b580      	push	{r7, lr}
+ 8000aca:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G2D1_GPIO, G2D1_PIN);
+ 8000acc:	2104      	movs	r1, #4
+ 8000ace:	4802      	ldr	r0, [pc, #8]	; (8000ad8 <AUDI_G2D1_On+0x10>)
+ 8000ad0:	f7ff ff05 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000ad4:	bf00      	nop
+ 8000ad6:	bd80      	pop	{r7, pc}
+ 8000ad8:	48000800 	.word	0x48000800
+
+08000adc <AUDI_G2D2_On>:
+
+void AUDI_G2D2_On(){
+ 8000adc:	b580      	push	{r7, lr}
+ 8000ade:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G2D2_GPIO, G2D2_PIN);
+ 8000ae0:	2108      	movs	r1, #8
+ 8000ae2:	4802      	ldr	r0, [pc, #8]	; (8000aec <AUDI_G2D2_On+0x10>)
+ 8000ae4:	f7ff fefb 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000ae8:	bf00      	nop
+ 8000aea:	bd80      	pop	{r7, pc}
+ 8000aec:	48000800 	.word	0x48000800
+
+08000af0 <AUDI_G2D3_On>:
+
+void AUDI_G2D3_On(){
+ 8000af0:	b580      	push	{r7, lr}
+ 8000af2:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G2D3_GPIO, G2D3_PIN);
+ 8000af4:	f44f 7180 	mov.w	r1, #256	; 0x100
+ 8000af8:	4802      	ldr	r0, [pc, #8]	; (8000b04 <AUDI_G2D3_On+0x14>)
+ 8000afa:	f7ff fef0 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000afe:	bf00      	nop
+ 8000b00:	bd80      	pop	{r7, pc}
+ 8000b02:	bf00      	nop
+ 8000b04:	48000800 	.word	0x48000800
+
+08000b08 <AUDI_G2D4_On>:
+
+void AUDI_G2D4_On(){
+ 8000b08:	b580      	push	{r7, lr}
+ 8000b0a:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G2D4_GPIO, G2D4_PIN);
+ 8000b0c:	2140      	movs	r1, #64	; 0x40
+ 8000b0e:	4802      	ldr	r0, [pc, #8]	; (8000b18 <AUDI_G2D4_On+0x10>)
+ 8000b10:	f7ff fee5 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000b14:	bf00      	nop
+ 8000b16:	bd80      	pop	{r7, pc}
+ 8000b18:	48000800 	.word	0x48000800
+
+08000b1c <AUDI_G2D5_On>:
+
+void AUDI_G2D5_On(){
+ 8000b1c:	b580      	push	{r7, lr}
+ 8000b1e:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G2D5_GPIO, G2D5_PIN);
+ 8000b20:	2120      	movs	r1, #32
+ 8000b22:	4802      	ldr	r0, [pc, #8]	; (8000b2c <AUDI_G2D5_On+0x10>)
+ 8000b24:	f7ff fedb 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000b28:	bf00      	nop
+ 8000b2a:	bd80      	pop	{r7, pc}
+ 8000b2c:	48000800 	.word	0x48000800
+
+08000b30 <AUDI_G2D6_On>:
+
+void AUDI_G2D6_On(){
+ 8000b30:	b580      	push	{r7, lr}
+ 8000b32:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G2D6_GPIO, G2D6_PIN);
+ 8000b34:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 8000b38:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000b3c:	f7ff fecf 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000b40:	bf00      	nop
+ 8000b42:	bd80      	pop	{r7, pc}
+
+08000b44 <AUDI_G2D7_On>:
+
+void AUDI_G2D7_On(){
+ 8000b44:	b580      	push	{r7, lr}
+ 8000b46:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G2D7_GPIO, G2D7_PIN);
+ 8000b48:	f44f 6100 	mov.w	r1, #2048	; 0x800
+ 8000b4c:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000b50:	f7ff fec5 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000b54:	bf00      	nop
+ 8000b56:	bd80      	pop	{r7, pc}
+
+08000b58 <AUDI_G2D8_On>:
+
+void AUDI_G2D8_On(){
+ 8000b58:	b580      	push	{r7, lr}
+ 8000b5a:	af00      	add	r7, sp, #0
+	LL_GPIO_ResetOutputPin(G2D8_GPIO, G2D8_PIN);
+ 8000b5c:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 8000b60:	4802      	ldr	r0, [pc, #8]	; (8000b6c <AUDI_G2D8_On+0x14>)
+ 8000b62:	f7ff febc 	bl	80008de <LL_GPIO_ResetOutputPin>
+}
+ 8000b66:	bf00      	nop
+ 8000b68:	bd80      	pop	{r7, pc}
+ 8000b6a:	bf00      	nop
+ 8000b6c:	48000400 	.word	0x48000400
+
+08000b70 <AUDI_G1D1_Off>:
+
+
+//LEd OFF
+//Set Izquierdo de LEDs
+void AUDI_G1D1_Off(){
+ 8000b70:	b580      	push	{r7, lr}
+ 8000b72:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G1D1_GPIO, G1D1_PIN);
+ 8000b74:	f44f 6180 	mov.w	r1, #1024	; 0x400
+ 8000b78:	4802      	ldr	r0, [pc, #8]	; (8000b84 <AUDI_G1D1_Off+0x14>)
+ 8000b7a:	f7ff fea2 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000b7e:	bf00      	nop
+ 8000b80:	bd80      	pop	{r7, pc}
+ 8000b82:	bf00      	nop
+ 8000b84:	48000800 	.word	0x48000800
+
+08000b88 <AUDI_G1D2_Off>:
+
+void AUDI_G1D2_Off(){
+ 8000b88:	b580      	push	{r7, lr}
+ 8000b8a:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G1D2_GPIO, G1D2_PIN);
+ 8000b8c:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 8000b90:	4802      	ldr	r0, [pc, #8]	; (8000b9c <AUDI_G1D2_Off+0x14>)
+ 8000b92:	f7ff fe96 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000b96:	bf00      	nop
+ 8000b98:	bd80      	pop	{r7, pc}
+ 8000b9a:	bf00      	nop
+ 8000b9c:	48000800 	.word	0x48000800
+
+08000ba0 <AUDI_G1D3_Off>:
+
+void AUDI_G1D3_Off(){
+ 8000ba0:	b580      	push	{r7, lr}
+ 8000ba2:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G1D3_GPIO, G1D3_PIN);
+ 8000ba4:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 8000ba8:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000bac:	f7ff fe89 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000bb0:	bf00      	nop
+ 8000bb2:	bd80      	pop	{r7, pc}
+
+08000bb4 <AUDI_G1D4_Off>:
+
+void AUDI_G1D4_Off(){
+ 8000bb4:	b580      	push	{r7, lr}
+ 8000bb6:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G1D4_GPIO, G1D4_PIN);
+ 8000bb8:	f44f 4180 	mov.w	r1, #16384	; 0x4000
+ 8000bbc:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000bc0:	f7ff fe7f 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000bc4:	bf00      	nop
+ 8000bc6:	bd80      	pop	{r7, pc}
+
+08000bc8 <AUDI_G1D5_Off>:
+
+void AUDI_G1D5_Off(){
+ 8000bc8:	b580      	push	{r7, lr}
+ 8000bca:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G1D5_GPIO, G1D5_PIN);
+ 8000bcc:	f44f 4100 	mov.w	r1, #32768	; 0x8000
+ 8000bd0:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000bd4:	f7ff fe75 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000bd8:	bf00      	nop
+ 8000bda:	bd80      	pop	{r7, pc}
+
+08000bdc <AUDI_G1D6_Off>:
+
+void AUDI_G1D6_Off(){
+ 8000bdc:	b580      	push	{r7, lr}
+ 8000bde:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G1D6_GPIO, G1D6_PIN);
+ 8000be0:	2180      	movs	r1, #128	; 0x80
+ 8000be2:	4802      	ldr	r0, [pc, #8]	; (8000bec <AUDI_G1D6_Off+0x10>)
+ 8000be4:	f7ff fe6d 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000be8:	bf00      	nop
+ 8000bea:	bd80      	pop	{r7, pc}
+ 8000bec:	48000400 	.word	0x48000400
+
+08000bf0 <AUDI_G1D7_Off>:
+
+void AUDI_G1D7_Off(){
+ 8000bf0:	b580      	push	{r7, lr}
+ 8000bf2:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G1D7_GPIO, G1D7_PIN);
+ 8000bf4:	f44f 5100 	mov.w	r1, #8192	; 0x2000
+ 8000bf8:	4802      	ldr	r0, [pc, #8]	; (8000c04 <AUDI_G1D7_Off+0x14>)
+ 8000bfa:	f7ff fe62 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000bfe:	bf00      	nop
+ 8000c00:	bd80      	pop	{r7, pc}
+ 8000c02:	bf00      	nop
+ 8000c04:	48000800 	.word	0x48000800
+
+08000c08 <AUDI_G1D8_Off>:
+
+void AUDI_G1D8_Off(){
+ 8000c08:	b580      	push	{r7, lr}
+ 8000c0a:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G1D8_GPIO, G1D8_PIN);
+ 8000c0c:	2110      	movs	r1, #16
+ 8000c0e:	4802      	ldr	r0, [pc, #8]	; (8000c18 <AUDI_G1D8_Off+0x10>)
+ 8000c10:	f7ff fe57 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000c14:	bf00      	nop
+ 8000c16:	bd80      	pop	{r7, pc}
+ 8000c18:	48000800 	.word	0x48000800
+
+08000c1c <AUDI_G2D1_Off>:
+
+
+//Set derecho de leds
+void AUDI_G2D1_Off(){
+ 8000c1c:	b580      	push	{r7, lr}
+ 8000c1e:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G2D1_GPIO, G2D1_PIN);
+ 8000c20:	2104      	movs	r1, #4
+ 8000c22:	4802      	ldr	r0, [pc, #8]	; (8000c2c <AUDI_G2D1_Off+0x10>)
+ 8000c24:	f7ff fe4d 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000c28:	bf00      	nop
+ 8000c2a:	bd80      	pop	{r7, pc}
+ 8000c2c:	48000800 	.word	0x48000800
+
+08000c30 <AUDI_G2D2_Off>:
+
+void AUDI_G2D2_Off(){
+ 8000c30:	b580      	push	{r7, lr}
+ 8000c32:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G2D2_GPIO, G2D2_PIN);
+ 8000c34:	2108      	movs	r1, #8
+ 8000c36:	4802      	ldr	r0, [pc, #8]	; (8000c40 <AUDI_G2D2_Off+0x10>)
+ 8000c38:	f7ff fe43 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000c3c:	bf00      	nop
+ 8000c3e:	bd80      	pop	{r7, pc}
+ 8000c40:	48000800 	.word	0x48000800
+
+08000c44 <AUDI_G2D3_Off>:
+
+void AUDI_G2D3_Off(){
+ 8000c44:	b580      	push	{r7, lr}
+ 8000c46:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G2D3_GPIO, G2D3_PIN);
+ 8000c48:	f44f 7180 	mov.w	r1, #256	; 0x100
+ 8000c4c:	4802      	ldr	r0, [pc, #8]	; (8000c58 <AUDI_G2D3_Off+0x14>)
+ 8000c4e:	f7ff fe38 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000c52:	bf00      	nop
+ 8000c54:	bd80      	pop	{r7, pc}
+ 8000c56:	bf00      	nop
+ 8000c58:	48000800 	.word	0x48000800
+
+08000c5c <AUDI_G2D4_Off>:
+
+void AUDI_G2D4_Off(){
+ 8000c5c:	b580      	push	{r7, lr}
+ 8000c5e:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G2D4_GPIO, G2D4_PIN);
+ 8000c60:	2140      	movs	r1, #64	; 0x40
+ 8000c62:	4802      	ldr	r0, [pc, #8]	; (8000c6c <AUDI_G2D4_Off+0x10>)
+ 8000c64:	f7ff fe2d 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000c68:	bf00      	nop
+ 8000c6a:	bd80      	pop	{r7, pc}
+ 8000c6c:	48000800 	.word	0x48000800
+
+08000c70 <AUDI_G2D5_Off>:
+
+void AUDI_G2D5_Off(){
+ 8000c70:	b580      	push	{r7, lr}
+ 8000c72:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G2D5_GPIO, G2D5_PIN);
+ 8000c74:	2120      	movs	r1, #32
+ 8000c76:	4802      	ldr	r0, [pc, #8]	; (8000c80 <AUDI_G2D5_Off+0x10>)
+ 8000c78:	f7ff fe23 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000c7c:	bf00      	nop
+ 8000c7e:	bd80      	pop	{r7, pc}
+ 8000c80:	48000800 	.word	0x48000800
+
+08000c84 <AUDI_G2D6_Off>:
+
+void AUDI_G2D6_Off(){
+ 8000c84:	b580      	push	{r7, lr}
+ 8000c86:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G2D6_GPIO, G2D6_PIN);
+ 8000c88:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 8000c8c:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000c90:	f7ff fe17 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000c94:	bf00      	nop
+ 8000c96:	bd80      	pop	{r7, pc}
+
+08000c98 <AUDI_G2D7_Off>:
+
+void AUDI_G2D7_Off(){
+ 8000c98:	b580      	push	{r7, lr}
+ 8000c9a:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G2D7_GPIO, G2D7_PIN);
+ 8000c9c:	f44f 6100 	mov.w	r1, #2048	; 0x800
+ 8000ca0:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000ca4:	f7ff fe0d 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000ca8:	bf00      	nop
+ 8000caa:	bd80      	pop	{r7, pc}
+
+08000cac <AUDI_G2D8_Off>:
+
+void AUDI_G2D8_Off(){
+ 8000cac:	b580      	push	{r7, lr}
+ 8000cae:	af00      	add	r7, sp, #0
+	LL_GPIO_SetOutputPin(G2D8_GPIO, G2D8_PIN);
+ 8000cb0:	f44f 5180 	mov.w	r1, #4096	; 0x1000
+ 8000cb4:	4802      	ldr	r0, [pc, #8]	; (8000cc0 <AUDI_G2D8_Off+0x14>)
+ 8000cb6:	f7ff fe04 	bl	80008c2 <LL_GPIO_SetOutputPin>
+}
+ 8000cba:	bf00      	nop
+ 8000cbc:	bd80      	pop	{r7, pc}
+ 8000cbe:	bf00      	nop
+ 8000cc0:	48000400 	.word	0x48000400
+
+08000cc4 <AUDI_Dx_AllOff>:
+
+
+void AUDI_Dx_AllOff(void){
+ 8000cc4:	b580      	push	{r7, lr}
+ 8000cc6:	af00      	add	r7, sp, #0
+	AUDI_G1D1_Off();
+ 8000cc8:	f7ff ff52 	bl	8000b70 <AUDI_G1D1_Off>
+	AUDI_G1D2_Off();
+ 8000ccc:	f7ff ff5c 	bl	8000b88 <AUDI_G1D2_Off>
+	AUDI_G1D3_Off();
+ 8000cd0:	f7ff ff66 	bl	8000ba0 <AUDI_G1D3_Off>
+	AUDI_G1D4_Off();
+ 8000cd4:	f7ff ff6e 	bl	8000bb4 <AUDI_G1D4_Off>
+	AUDI_G1D5_Off();
+ 8000cd8:	f7ff ff76 	bl	8000bc8 <AUDI_G1D5_Off>
+	AUDI_G1D6_Off();
+ 8000cdc:	f7ff ff7e 	bl	8000bdc <AUDI_G1D6_Off>
+	AUDI_G1D7_Off();
+ 8000ce0:	f7ff ff86 	bl	8000bf0 <AUDI_G1D7_Off>
+	AUDI_G1D8_Off();
+ 8000ce4:	f7ff ff90 	bl	8000c08 <AUDI_G1D8_Off>
+
+	AUDI_G2D1_Off();
+ 8000ce8:	f7ff ff98 	bl	8000c1c <AUDI_G2D1_Off>
+	AUDI_G2D2_Off();
+ 8000cec:	f7ff ffa0 	bl	8000c30 <AUDI_G2D2_Off>
+	AUDI_G2D3_Off();
+ 8000cf0:	f7ff ffa8 	bl	8000c44 <AUDI_G2D3_Off>
+	AUDI_G2D4_Off();
+ 8000cf4:	f7ff ffb2 	bl	8000c5c <AUDI_G2D4_Off>
+	AUDI_G2D5_Off();
+ 8000cf8:	f7ff ffba 	bl	8000c70 <AUDI_G2D5_Off>
+	AUDI_G2D6_Off();
+ 8000cfc:	f7ff ffc2 	bl	8000c84 <AUDI_G2D6_Off>
+	AUDI_G2D7_Off();
+ 8000d00:	f7ff ffca 	bl	8000c98 <AUDI_G2D7_Off>
+	AUDI_G2D8_Off();
+ 8000d04:	f7ff ffd2 	bl	8000cac <AUDI_G2D8_Off>
+}
+ 8000d08:	bf00      	nop
+ 8000d0a:	bd80      	pop	{r7, pc}
+
+08000d0c <AUDI_Dx_AllOn>:
+
+void AUDI_Dx_AllOn(void){
+ 8000d0c:	b580      	push	{r7, lr}
+ 8000d0e:	af00      	add	r7, sp, #0
+	AUDI_G1D1_On();
+ 8000d10:	f7ff fe84 	bl	8000a1c <AUDI_G1D1_On>
+	AUDI_G1D2_On();
+ 8000d14:	f7ff fe8e 	bl	8000a34 <AUDI_G1D2_On>
+	AUDI_G1D3_On();
+ 8000d18:	f7ff fe98 	bl	8000a4c <AUDI_G1D3_On>
+	AUDI_G1D4_On();
+ 8000d1c:	f7ff fea0 	bl	8000a60 <AUDI_G1D4_On>
+	AUDI_G1D5_On();
+ 8000d20:	f7ff fea8 	bl	8000a74 <AUDI_G1D5_On>
+	AUDI_G1D6_On();
+ 8000d24:	f7ff feb0 	bl	8000a88 <AUDI_G1D6_On>
+	AUDI_G1D7_On();
+ 8000d28:	f7ff feb8 	bl	8000a9c <AUDI_G1D7_On>
+	AUDI_G1D8_On();
+ 8000d2c:	f7ff fec2 	bl	8000ab4 <AUDI_G1D8_On>
+
+	AUDI_G2D1_On();
+ 8000d30:	f7ff feca 	bl	8000ac8 <AUDI_G2D1_On>
+	AUDI_G2D2_On();
+ 8000d34:	f7ff fed2 	bl	8000adc <AUDI_G2D2_On>
+	AUDI_G2D3_On();
+ 8000d38:	f7ff feda 	bl	8000af0 <AUDI_G2D3_On>
+	AUDI_G2D4_On();
+ 8000d3c:	f7ff fee4 	bl	8000b08 <AUDI_G2D4_On>
+	AUDI_G2D5_On();
+ 8000d40:	f7ff feec 	bl	8000b1c <AUDI_G2D5_On>
+	AUDI_G2D6_On();
+ 8000d44:	f7ff fef4 	bl	8000b30 <AUDI_G2D6_On>
+	AUDI_G2D7_On();
+ 8000d48:	f7ff fefc 	bl	8000b44 <AUDI_G2D7_On>
+	AUDI_G2D8_On();
+ 8000d4c:	f7ff ff04 	bl	8000b58 <AUDI_G2D8_On>
+}
+ 8000d50:	bf00      	nop
+ 8000d52:	bd80      	pop	{r7, pc}
+
+08000d54 <LL_AHB2_GRP1_EnableClock>:
+{
+ 8000d54:	b480      	push	{r7}
+ 8000d56:	b085      	sub	sp, #20
+ 8000d58:	af00      	add	r7, sp, #0
+ 8000d5a:	6078      	str	r0, [r7, #4]
+  SET_BIT(RCC->AHB2ENR, Periphs);
+ 8000d5c:	4b08      	ldr	r3, [pc, #32]	; (8000d80 <LL_AHB2_GRP1_EnableClock+0x2c>)
+ 8000d5e:	6cda      	ldr	r2, [r3, #76]	; 0x4c
+ 8000d60:	4907      	ldr	r1, [pc, #28]	; (8000d80 <LL_AHB2_GRP1_EnableClock+0x2c>)
+ 8000d62:	687b      	ldr	r3, [r7, #4]
+ 8000d64:	4313      	orrs	r3, r2
+ 8000d66:	64cb      	str	r3, [r1, #76]	; 0x4c
+  tmpreg = READ_BIT(RCC->AHB2ENR, Periphs);
+ 8000d68:	4b05      	ldr	r3, [pc, #20]	; (8000d80 <LL_AHB2_GRP1_EnableClock+0x2c>)
+ 8000d6a:	6cda      	ldr	r2, [r3, #76]	; 0x4c
+ 8000d6c:	687b      	ldr	r3, [r7, #4]
+ 8000d6e:	4013      	ands	r3, r2
+ 8000d70:	60fb      	str	r3, [r7, #12]
+  (void)tmpreg;
+ 8000d72:	68fb      	ldr	r3, [r7, #12]
+}
+ 8000d74:	bf00      	nop
+ 8000d76:	3714      	adds	r7, #20
+ 8000d78:	46bd      	mov	sp, r7
+ 8000d7a:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000d7e:	4770      	bx	lr
+ 8000d80:	40021000 	.word	0x40021000
+
+08000d84 <LL_GPIO_SetPinMode>:
+{
+ 8000d84:	b480      	push	{r7}
+ 8000d86:	b08b      	sub	sp, #44	; 0x2c
+ 8000d88:	af00      	add	r7, sp, #0
+ 8000d8a:	60f8      	str	r0, [r7, #12]
+ 8000d8c:	60b9      	str	r1, [r7, #8]
+ 8000d8e:	607a      	str	r2, [r7, #4]
+  MODIFY_REG(GPIOx->MODER, (GPIO_MODER_MODE0 << (POSITION_VAL(Pin) * 2U)), (Mode << (POSITION_VAL(Pin) * 2U)));
+ 8000d90:	68fb      	ldr	r3, [r7, #12]
+ 8000d92:	681a      	ldr	r2, [r3, #0]
+ 8000d94:	68bb      	ldr	r3, [r7, #8]
+ 8000d96:	617b      	str	r3, [r7, #20]
+   __ASM volatile ("rbit %0, %1" : "=r" (result) : "r" (value) );
+ 8000d98:	697b      	ldr	r3, [r7, #20]
+ 8000d9a:	fa93 f3a3 	rbit	r3, r3
+ 8000d9e:	613b      	str	r3, [r7, #16]
+  return result;
+ 8000da0:	693b      	ldr	r3, [r7, #16]
+ 8000da2:	61bb      	str	r3, [r7, #24]
+  if (value == 0U)
+ 8000da4:	69bb      	ldr	r3, [r7, #24]
+ 8000da6:	2b00      	cmp	r3, #0
+ 8000da8:	d101      	bne.n	8000dae <LL_GPIO_SetPinMode+0x2a>
+    return 32U;
+ 8000daa:	2320      	movs	r3, #32
+ 8000dac:	e003      	b.n	8000db6 <LL_GPIO_SetPinMode+0x32>
+  return __builtin_clz(value);
+ 8000dae:	69bb      	ldr	r3, [r7, #24]
+ 8000db0:	fab3 f383 	clz	r3, r3
+ 8000db4:	b2db      	uxtb	r3, r3
+ 8000db6:	005b      	lsls	r3, r3, #1
+ 8000db8:	2103      	movs	r1, #3
+ 8000dba:	fa01 f303 	lsl.w	r3, r1, r3
+ 8000dbe:	43db      	mvns	r3, r3
+ 8000dc0:	401a      	ands	r2, r3
+ 8000dc2:	68bb      	ldr	r3, [r7, #8]
+ 8000dc4:	623b      	str	r3, [r7, #32]
+   __ASM volatile ("rbit %0, %1" : "=r" (result) : "r" (value) );
+ 8000dc6:	6a3b      	ldr	r3, [r7, #32]
+ 8000dc8:	fa93 f3a3 	rbit	r3, r3
+ 8000dcc:	61fb      	str	r3, [r7, #28]
+  return result;
+ 8000dce:	69fb      	ldr	r3, [r7, #28]
+ 8000dd0:	627b      	str	r3, [r7, #36]	; 0x24
+  if (value == 0U)
+ 8000dd2:	6a7b      	ldr	r3, [r7, #36]	; 0x24
+ 8000dd4:	2b00      	cmp	r3, #0
+ 8000dd6:	d101      	bne.n	8000ddc <LL_GPIO_SetPinMode+0x58>
+    return 32U;
+ 8000dd8:	2320      	movs	r3, #32
+ 8000dda:	e003      	b.n	8000de4 <LL_GPIO_SetPinMode+0x60>
+  return __builtin_clz(value);
+ 8000ddc:	6a7b      	ldr	r3, [r7, #36]	; 0x24
+ 8000dde:	fab3 f383 	clz	r3, r3
+ 8000de2:	b2db      	uxtb	r3, r3
+ 8000de4:	005b      	lsls	r3, r3, #1
+ 8000de6:	6879      	ldr	r1, [r7, #4]
+ 8000de8:	fa01 f303 	lsl.w	r3, r1, r3
+ 8000dec:	431a      	orrs	r2, r3
+ 8000dee:	68fb      	ldr	r3, [r7, #12]
+ 8000df0:	601a      	str	r2, [r3, #0]
+}
+ 8000df2:	bf00      	nop
+ 8000df4:	372c      	adds	r7, #44	; 0x2c
+ 8000df6:	46bd      	mov	sp, r7
+ 8000df8:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000dfc:	4770      	bx	lr
+
+08000dfe <LL_GPIO_IsInputPinSet>:
+{
+ 8000dfe:	b480      	push	{r7}
+ 8000e00:	b083      	sub	sp, #12
+ 8000e02:	af00      	add	r7, sp, #0
+ 8000e04:	6078      	str	r0, [r7, #4]
+ 8000e06:	6039      	str	r1, [r7, #0]
+  return ((READ_BIT(GPIOx->IDR, PinMask) == (PinMask)) ? 1UL : 0UL);
+ 8000e08:	687b      	ldr	r3, [r7, #4]
+ 8000e0a:	691a      	ldr	r2, [r3, #16]
+ 8000e0c:	683b      	ldr	r3, [r7, #0]
+ 8000e0e:	4013      	ands	r3, r2
+ 8000e10:	683a      	ldr	r2, [r7, #0]
+ 8000e12:	429a      	cmp	r2, r3
+ 8000e14:	d101      	bne.n	8000e1a <LL_GPIO_IsInputPinSet+0x1c>
+ 8000e16:	2301      	movs	r3, #1
+ 8000e18:	e000      	b.n	8000e1c <LL_GPIO_IsInputPinSet+0x1e>
+ 8000e1a:	2300      	movs	r3, #0
+}
+ 8000e1c:	4618      	mov	r0, r3
+ 8000e1e:	370c      	adds	r7, #12
+ 8000e20:	46bd      	mov	sp, r7
+ 8000e22:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000e26:	4770      	bx	lr
+
+08000e28 <AUDI_Sx_Init>:
+#define S2_GPIO GPIOA
+#define S3_GPIO GPIOB
+
+uint16_t pollingTime = 50;
+
+void AUDI_Sx_Init(void){
+ 8000e28:	b580      	push	{r7, lr}
+ 8000e2a:	af00      	add	r7, sp, #0
+	LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
+ 8000e2c:	2002      	movs	r0, #2
+ 8000e2e:	f7ff ff91 	bl	8000d54 <LL_AHB2_GRP1_EnableClock>
+
+	LL_GPIO_SetPinMode(S1_GPIO, S1_PIN, LL_GPIO_MODE_INPUT);
+ 8000e32:	2200      	movs	r2, #0
+ 8000e34:	2102      	movs	r1, #2
+ 8000e36:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000e3a:	f7ff ffa3 	bl	8000d84 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(S2_GPIO, S2_PIN, LL_GPIO_MODE_INPUT);
+ 8000e3e:	2200      	movs	r2, #0
+ 8000e40:	2110      	movs	r1, #16
+ 8000e42:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000e46:	f7ff ff9d 	bl	8000d84 <LL_GPIO_SetPinMode>
+	LL_GPIO_SetPinMode(S3_GPIO, S3_PIN, LL_GPIO_MODE_INPUT);
+ 8000e4a:	2200      	movs	r2, #0
+ 8000e4c:	2101      	movs	r1, #1
+ 8000e4e:	4802      	ldr	r0, [pc, #8]	; (8000e58 <AUDI_Sx_Init+0x30>)
+ 8000e50:	f7ff ff98 	bl	8000d84 <LL_GPIO_SetPinMode>
+}
+ 8000e54:	bf00      	nop
+ 8000e56:	bd80      	pop	{r7, pc}
+ 8000e58:	48000400 	.word	0x48000400
+
+08000e5c <AUDI_S1_Read>:
+
+uint8_t AUDI_S1_Read(void){
+ 8000e5c:	b580      	push	{r7, lr}
+ 8000e5e:	af00      	add	r7, sp, #0
+	if (LL_GPIO_IsInputPinSet(S1_GPIO, S1_PIN) == 0){
+ 8000e60:	2102      	movs	r1, #2
+ 8000e62:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000e66:	f7ff ffca 	bl	8000dfe <LL_GPIO_IsInputPinSet>
+ 8000e6a:	4603      	mov	r3, r0
+ 8000e6c:	2b00      	cmp	r3, #0
+ 8000e6e:	d101      	bne.n	8000e74 <AUDI_S1_Read+0x18>
+		return 1;
+ 8000e70:	2301      	movs	r3, #1
+ 8000e72:	e000      	b.n	8000e76 <AUDI_S1_Read+0x1a>
+	}else{
+		return 0;
+ 8000e74:	2300      	movs	r3, #0
+	}
+}
+ 8000e76:	4618      	mov	r0, r3
+ 8000e78:	bd80      	pop	{r7, pc}
+
+08000e7a <AUDI_S2_Read>:
+
+uint8_t AUDI_S2_Read(void){
+ 8000e7a:	b580      	push	{r7, lr}
+ 8000e7c:	af00      	add	r7, sp, #0
+	if (LL_GPIO_IsInputPinSet(S2_GPIO, S2_PIN) == 0){
+ 8000e7e:	2110      	movs	r1, #16
+ 8000e80:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8000e84:	f7ff ffbb 	bl	8000dfe <LL_GPIO_IsInputPinSet>
+ 8000e88:	4603      	mov	r3, r0
+ 8000e8a:	2b00      	cmp	r3, #0
+ 8000e8c:	d101      	bne.n	8000e92 <AUDI_S2_Read+0x18>
+		return 1;
+ 8000e8e:	2301      	movs	r3, #1
+ 8000e90:	e000      	b.n	8000e94 <AUDI_S2_Read+0x1a>
+	}else{
+		return 0;
+ 8000e92:	2300      	movs	r3, #0
+	}
+}
+ 8000e94:	4618      	mov	r0, r3
+ 8000e96:	bd80      	pop	{r7, pc}
+
+08000e98 <AUDI_S3_Read>:
+
+uint8_t AUDI_S3_Read(void){
+ 8000e98:	b580      	push	{r7, lr}
+ 8000e9a:	af00      	add	r7, sp, #0
+	if (LL_GPIO_IsInputPinSet(S3_GPIO, S3_PIN) == 0){
+ 8000e9c:	2101      	movs	r1, #1
+ 8000e9e:	4805      	ldr	r0, [pc, #20]	; (8000eb4 <AUDI_S3_Read+0x1c>)
+ 8000ea0:	f7ff ffad 	bl	8000dfe <LL_GPIO_IsInputPinSet>
+ 8000ea4:	4603      	mov	r3, r0
+ 8000ea6:	2b00      	cmp	r3, #0
+ 8000ea8:	d101      	bne.n	8000eae <AUDI_S3_Read+0x16>
+		return 1;
+ 8000eaa:	2301      	movs	r3, #1
+ 8000eac:	e000      	b.n	8000eb0 <AUDI_S3_Read+0x18>
+	}else{
+		return 0;
+ 8000eae:	2300      	movs	r3, #0
+	}
+}
+ 8000eb0:	4618      	mov	r0, r3
+ 8000eb2:	bd80      	pop	{r7, pc}
+ 8000eb4:	48000400 	.word	0x48000400
+
+08000eb8 <S1_Polling>:
+
+
+uint8_t S1_Polling(void){
+ 8000eb8:	b580      	push	{r7, lr}
+ 8000eba:	b082      	sub	sp, #8
+ 8000ebc:	af00      	add	r7, sp, #0
+	static enum S1_t state = RELEASED;
+	enum S1_t next_state;
+
+	static uint8_t S1_Event = 0;
+
+	if (MSP_GetTick() - lastTick >= pollingTime){
+ 8000ebe:	f000 f927 	bl	8001110 <MSP_GetTick>
+ 8000ec2:	4602      	mov	r2, r0
+ 8000ec4:	4b1d      	ldr	r3, [pc, #116]	; (8000f3c <S1_Polling+0x84>)
+ 8000ec6:	681b      	ldr	r3, [r3, #0]
+ 8000ec8:	1ad3      	subs	r3, r2, r3
+ 8000eca:	4a1d      	ldr	r2, [pc, #116]	; (8000f40 <S1_Polling+0x88>)
+ 8000ecc:	8812      	ldrh	r2, [r2, #0]
+ 8000ece:	4293      	cmp	r3, r2
+ 8000ed0:	d32e      	bcc.n	8000f30 <S1_Polling+0x78>
+		lastTick = MSP_GetTick();
+ 8000ed2:	f000 f91d 	bl	8001110 <MSP_GetTick>
+ 8000ed6:	4603      	mov	r3, r0
+ 8000ed8:	4a18      	ldr	r2, [pc, #96]	; (8000f3c <S1_Polling+0x84>)
+ 8000eda:	6013      	str	r3, [r2, #0]
+
+		uint8_t input = AUDI_S1_Read();
+ 8000edc:	f7ff ffbe 	bl	8000e5c <AUDI_S1_Read>
+ 8000ee0:	4603      	mov	r3, r0
+ 8000ee2:	71bb      	strb	r3, [r7, #6]
+
+		switch(state){
+ 8000ee4:	4b17      	ldr	r3, [pc, #92]	; (8000f44 <S1_Polling+0x8c>)
+ 8000ee6:	781b      	ldrb	r3, [r3, #0]
+ 8000ee8:	2b00      	cmp	r3, #0
+ 8000eea:	d002      	beq.n	8000ef2 <S1_Polling+0x3a>
+ 8000eec:	2b01      	cmp	r3, #1
+ 8000eee:	d013      	beq.n	8000f18 <S1_Polling+0x60>
+ 8000ef0:	e01b      	b.n	8000f2a <S1_Polling+0x72>
+		case PUSHED:
+			if (input == 0){
+ 8000ef2:	79bb      	ldrb	r3, [r7, #6]
+ 8000ef4:	2b00      	cmp	r3, #0
+ 8000ef6:	d10c      	bne.n	8000f12 <S1_Polling+0x5a>
+				next_state = RELEASED;
+ 8000ef8:	2301      	movs	r3, #1
+ 8000efa:	71fb      	strb	r3, [r7, #7]
+				S1_Event = (S1_Event == 1) ? 0 : 1;
+ 8000efc:	4b12      	ldr	r3, [pc, #72]	; (8000f48 <S1_Polling+0x90>)
+ 8000efe:	781b      	ldrb	r3, [r3, #0]
+ 8000f00:	2b01      	cmp	r3, #1
+ 8000f02:	bf14      	ite	ne
+ 8000f04:	2301      	movne	r3, #1
+ 8000f06:	2300      	moveq	r3, #0
+ 8000f08:	b2db      	uxtb	r3, r3
+ 8000f0a:	461a      	mov	r2, r3
+ 8000f0c:	4b0e      	ldr	r3, [pc, #56]	; (8000f48 <S1_Polling+0x90>)
+ 8000f0e:	701a      	strb	r2, [r3, #0]
+			}else{
+				next_state = PUSHED;
+			}
+			break;
+ 8000f10:	e00b      	b.n	8000f2a <S1_Polling+0x72>
+				next_state = PUSHED;
+ 8000f12:	2300      	movs	r3, #0
+ 8000f14:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000f16:	e008      	b.n	8000f2a <S1_Polling+0x72>
+
+		case RELEASED:
+			if (input == 0){
+ 8000f18:	79bb      	ldrb	r3, [r7, #6]
+ 8000f1a:	2b00      	cmp	r3, #0
+ 8000f1c:	d102      	bne.n	8000f24 <S1_Polling+0x6c>
+				next_state = RELEASED;
+ 8000f1e:	2301      	movs	r3, #1
+ 8000f20:	71fb      	strb	r3, [r7, #7]
+			}else{
+				next_state = PUSHED;
+			}
+			break;
+ 8000f22:	e001      	b.n	8000f28 <S1_Polling+0x70>
+				next_state = PUSHED;
+ 8000f24:	2300      	movs	r3, #0
+ 8000f26:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000f28:	bf00      	nop
+		}
+		state = next_state;
+ 8000f2a:	4a06      	ldr	r2, [pc, #24]	; (8000f44 <S1_Polling+0x8c>)
+ 8000f2c:	79fb      	ldrb	r3, [r7, #7]
+ 8000f2e:	7013      	strb	r3, [r2, #0]
+	}
+	return S1_Event;
+ 8000f30:	4b05      	ldr	r3, [pc, #20]	; (8000f48 <S1_Polling+0x90>)
+ 8000f32:	781b      	ldrb	r3, [r3, #0]
+}
+ 8000f34:	4618      	mov	r0, r3
+ 8000f36:	3708      	adds	r7, #8
+ 8000f38:	46bd      	mov	sp, r7
+ 8000f3a:	bd80      	pop	{r7, pc}
+ 8000f3c:	2000003c 	.word	0x2000003c
+ 8000f40:	20000008 	.word	0x20000008
+ 8000f44:	2000000a 	.word	0x2000000a
+ 8000f48:	20000040 	.word	0x20000040
+
+08000f4c <S2_Polling>:
+
+uint8_t S2_Polling(void){
+ 8000f4c:	b580      	push	{r7, lr}
+ 8000f4e:	b082      	sub	sp, #8
+ 8000f50:	af00      	add	r7, sp, #0
+	static enum S1_t state = RELEASED;
+	enum S1_t next_state;
+
+	static uint8_t S1_Event = 0;
+
+	if (MSP_GetTick() - lastTick >= pollingTime){
+ 8000f52:	f000 f8dd 	bl	8001110 <MSP_GetTick>
+ 8000f56:	4602      	mov	r2, r0
+ 8000f58:	4b1d      	ldr	r3, [pc, #116]	; (8000fd0 <S2_Polling+0x84>)
+ 8000f5a:	681b      	ldr	r3, [r3, #0]
+ 8000f5c:	1ad3      	subs	r3, r2, r3
+ 8000f5e:	4a1d      	ldr	r2, [pc, #116]	; (8000fd4 <S2_Polling+0x88>)
+ 8000f60:	8812      	ldrh	r2, [r2, #0]
+ 8000f62:	4293      	cmp	r3, r2
+ 8000f64:	d32e      	bcc.n	8000fc4 <S2_Polling+0x78>
+		lastTick = MSP_GetTick();
+ 8000f66:	f000 f8d3 	bl	8001110 <MSP_GetTick>
+ 8000f6a:	4603      	mov	r3, r0
+ 8000f6c:	4a18      	ldr	r2, [pc, #96]	; (8000fd0 <S2_Polling+0x84>)
+ 8000f6e:	6013      	str	r3, [r2, #0]
+
+		uint8_t input = AUDI_S2_Read();
+ 8000f70:	f7ff ff83 	bl	8000e7a <AUDI_S2_Read>
+ 8000f74:	4603      	mov	r3, r0
+ 8000f76:	71bb      	strb	r3, [r7, #6]
+
+		switch(state){
+ 8000f78:	4b17      	ldr	r3, [pc, #92]	; (8000fd8 <S2_Polling+0x8c>)
+ 8000f7a:	781b      	ldrb	r3, [r3, #0]
+ 8000f7c:	2b00      	cmp	r3, #0
+ 8000f7e:	d002      	beq.n	8000f86 <S2_Polling+0x3a>
+ 8000f80:	2b01      	cmp	r3, #1
+ 8000f82:	d013      	beq.n	8000fac <S2_Polling+0x60>
+ 8000f84:	e01b      	b.n	8000fbe <S2_Polling+0x72>
+		case PUSHED:
+			if (input == 0){
+ 8000f86:	79bb      	ldrb	r3, [r7, #6]
+ 8000f88:	2b00      	cmp	r3, #0
+ 8000f8a:	d10c      	bne.n	8000fa6 <S2_Polling+0x5a>
+				next_state = RELEASED;
+ 8000f8c:	2301      	movs	r3, #1
+ 8000f8e:	71fb      	strb	r3, [r7, #7]
+				S1_Event = (S1_Event == 1) ? 0 : 1;
+ 8000f90:	4b12      	ldr	r3, [pc, #72]	; (8000fdc <S2_Polling+0x90>)
+ 8000f92:	781b      	ldrb	r3, [r3, #0]
+ 8000f94:	2b01      	cmp	r3, #1
+ 8000f96:	bf14      	ite	ne
+ 8000f98:	2301      	movne	r3, #1
+ 8000f9a:	2300      	moveq	r3, #0
+ 8000f9c:	b2db      	uxtb	r3, r3
+ 8000f9e:	461a      	mov	r2, r3
+ 8000fa0:	4b0e      	ldr	r3, [pc, #56]	; (8000fdc <S2_Polling+0x90>)
+ 8000fa2:	701a      	strb	r2, [r3, #0]
+			}else{
+				next_state = PUSHED;
+			}
+			break;
+ 8000fa4:	e00b      	b.n	8000fbe <S2_Polling+0x72>
+				next_state = PUSHED;
+ 8000fa6:	2300      	movs	r3, #0
+ 8000fa8:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000faa:	e008      	b.n	8000fbe <S2_Polling+0x72>
+
+		case RELEASED:
+			if (input == 0){
+ 8000fac:	79bb      	ldrb	r3, [r7, #6]
+ 8000fae:	2b00      	cmp	r3, #0
+ 8000fb0:	d102      	bne.n	8000fb8 <S2_Polling+0x6c>
+				next_state = RELEASED;
+ 8000fb2:	2301      	movs	r3, #1
+ 8000fb4:	71fb      	strb	r3, [r7, #7]
+			}else{
+				next_state = PUSHED;
+			}
+			break;
+ 8000fb6:	e001      	b.n	8000fbc <S2_Polling+0x70>
+				next_state = PUSHED;
+ 8000fb8:	2300      	movs	r3, #0
+ 8000fba:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8000fbc:	bf00      	nop
+		}
+		state = next_state;
+ 8000fbe:	4a06      	ldr	r2, [pc, #24]	; (8000fd8 <S2_Polling+0x8c>)
+ 8000fc0:	79fb      	ldrb	r3, [r7, #7]
+ 8000fc2:	7013      	strb	r3, [r2, #0]
+	}
+	return S1_Event;
+ 8000fc4:	4b05      	ldr	r3, [pc, #20]	; (8000fdc <S2_Polling+0x90>)
+ 8000fc6:	781b      	ldrb	r3, [r3, #0]
+}
+ 8000fc8:	4618      	mov	r0, r3
+ 8000fca:	3708      	adds	r7, #8
+ 8000fcc:	46bd      	mov	sp, r7
+ 8000fce:	bd80      	pop	{r7, pc}
+ 8000fd0:	20000044 	.word	0x20000044
+ 8000fd4:	20000008 	.word	0x20000008
+ 8000fd8:	2000000b 	.word	0x2000000b
+ 8000fdc:	20000048 	.word	0x20000048
+
+08000fe0 <S3_Polling>:
+
+uint8_t S3_Polling(void){
+ 8000fe0:	b580      	push	{r7, lr}
+ 8000fe2:	b082      	sub	sp, #8
+ 8000fe4:	af00      	add	r7, sp, #0
+	static enum S1_t state = RELEASED;
+	enum S1_t next_state;
+
+	static uint8_t S1_Event = 0;
+
+	if (MSP_GetTick() - lastTick >= pollingTime){
+ 8000fe6:	f000 f893 	bl	8001110 <MSP_GetTick>
+ 8000fea:	4602      	mov	r2, r0
+ 8000fec:	4b1d      	ldr	r3, [pc, #116]	; (8001064 <S3_Polling+0x84>)
+ 8000fee:	681b      	ldr	r3, [r3, #0]
+ 8000ff0:	1ad3      	subs	r3, r2, r3
+ 8000ff2:	4a1d      	ldr	r2, [pc, #116]	; (8001068 <S3_Polling+0x88>)
+ 8000ff4:	8812      	ldrh	r2, [r2, #0]
+ 8000ff6:	4293      	cmp	r3, r2
+ 8000ff8:	d32e      	bcc.n	8001058 <S3_Polling+0x78>
+		lastTick = MSP_GetTick();
+ 8000ffa:	f000 f889 	bl	8001110 <MSP_GetTick>
+ 8000ffe:	4603      	mov	r3, r0
+ 8001000:	4a18      	ldr	r2, [pc, #96]	; (8001064 <S3_Polling+0x84>)
+ 8001002:	6013      	str	r3, [r2, #0]
+
+		uint8_t input = AUDI_S3_Read();
+ 8001004:	f7ff ff48 	bl	8000e98 <AUDI_S3_Read>
+ 8001008:	4603      	mov	r3, r0
+ 800100a:	71bb      	strb	r3, [r7, #6]
+
+		switch(state){
+ 800100c:	4b17      	ldr	r3, [pc, #92]	; (800106c <S3_Polling+0x8c>)
+ 800100e:	781b      	ldrb	r3, [r3, #0]
+ 8001010:	2b00      	cmp	r3, #0
+ 8001012:	d002      	beq.n	800101a <S3_Polling+0x3a>
+ 8001014:	2b01      	cmp	r3, #1
+ 8001016:	d013      	beq.n	8001040 <S3_Polling+0x60>
+ 8001018:	e01b      	b.n	8001052 <S3_Polling+0x72>
+		case PUSHED:
+			if (input == 0){
+ 800101a:	79bb      	ldrb	r3, [r7, #6]
+ 800101c:	2b00      	cmp	r3, #0
+ 800101e:	d10c      	bne.n	800103a <S3_Polling+0x5a>
+				next_state = RELEASED;
+ 8001020:	2301      	movs	r3, #1
+ 8001022:	71fb      	strb	r3, [r7, #7]
+				S1_Event = (S1_Event == 1) ? 0 : 1;
+ 8001024:	4b12      	ldr	r3, [pc, #72]	; (8001070 <S3_Polling+0x90>)
+ 8001026:	781b      	ldrb	r3, [r3, #0]
+ 8001028:	2b01      	cmp	r3, #1
+ 800102a:	bf14      	ite	ne
+ 800102c:	2301      	movne	r3, #1
+ 800102e:	2300      	moveq	r3, #0
+ 8001030:	b2db      	uxtb	r3, r3
+ 8001032:	461a      	mov	r2, r3
+ 8001034:	4b0e      	ldr	r3, [pc, #56]	; (8001070 <S3_Polling+0x90>)
+ 8001036:	701a      	strb	r2, [r3, #0]
+			}else{
+				next_state = PUSHED;
+			}
+			break;
+ 8001038:	e00b      	b.n	8001052 <S3_Polling+0x72>
+				next_state = PUSHED;
+ 800103a:	2300      	movs	r3, #0
+ 800103c:	71fb      	strb	r3, [r7, #7]
+			break;
+ 800103e:	e008      	b.n	8001052 <S3_Polling+0x72>
+
+		case RELEASED:
+			if (input == 0){
+ 8001040:	79bb      	ldrb	r3, [r7, #6]
+ 8001042:	2b00      	cmp	r3, #0
+ 8001044:	d102      	bne.n	800104c <S3_Polling+0x6c>
+				next_state = RELEASED;
+ 8001046:	2301      	movs	r3, #1
+ 8001048:	71fb      	strb	r3, [r7, #7]
+			}else{
+				next_state = PUSHED;
+			}
+			break;
+ 800104a:	e001      	b.n	8001050 <S3_Polling+0x70>
+				next_state = PUSHED;
+ 800104c:	2300      	movs	r3, #0
+ 800104e:	71fb      	strb	r3, [r7, #7]
+			break;
+ 8001050:	bf00      	nop
+		}
+		state = next_state;
+ 8001052:	4a06      	ldr	r2, [pc, #24]	; (800106c <S3_Polling+0x8c>)
+ 8001054:	79fb      	ldrb	r3, [r7, #7]
+ 8001056:	7013      	strb	r3, [r2, #0]
+	}
+	return S1_Event;
+ 8001058:	4b05      	ldr	r3, [pc, #20]	; (8001070 <S3_Polling+0x90>)
+ 800105a:	781b      	ldrb	r3, [r3, #0]
+}
+ 800105c:	4618      	mov	r0, r3
+ 800105e:	3708      	adds	r7, #8
+ 8001060:	46bd      	mov	sp, r7
+ 8001062:	bd80      	pop	{r7, pc}
+ 8001064:	2000004c 	.word	0x2000004c
+ 8001068:	20000008 	.word	0x20000008
+ 800106c:	2000000c 	.word	0x2000000c
+ 8001070:	20000050 	.word	0x20000050
+
+08001074 <LL_InitTick>:
+  *         configuration by calling this function, for a delay use rather osDelay RTOS service.
+  * @param  Ticks Number of ticks
+  * @retval None
+  */
+__STATIC_INLINE void LL_InitTick(uint32_t HCLKFrequency, uint32_t Ticks)
+{
+ 8001074:	b480      	push	{r7}
+ 8001076:	b083      	sub	sp, #12
+ 8001078:	af00      	add	r7, sp, #0
+ 800107a:	6078      	str	r0, [r7, #4]
+ 800107c:	6039      	str	r1, [r7, #0]
+  /* Configure the SysTick to have interrupt in 1ms time base */
+  SysTick->LOAD  = (uint32_t)((HCLKFrequency / Ticks) - 1UL);  /* set reload register */
+ 800107e:	687a      	ldr	r2, [r7, #4]
+ 8001080:	683b      	ldr	r3, [r7, #0]
+ 8001082:	fbb2 f3f3 	udiv	r3, r2, r3
+ 8001086:	4a07      	ldr	r2, [pc, #28]	; (80010a4 <LL_InitTick+0x30>)
+ 8001088:	3b01      	subs	r3, #1
+ 800108a:	6053      	str	r3, [r2, #4]
+  SysTick->VAL   = 0UL;                                       /* Load the SysTick Counter Value */
+ 800108c:	4b05      	ldr	r3, [pc, #20]	; (80010a4 <LL_InitTick+0x30>)
+ 800108e:	2200      	movs	r2, #0
+ 8001090:	609a      	str	r2, [r3, #8]
+  SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+ 8001092:	4b04      	ldr	r3, [pc, #16]	; (80010a4 <LL_InitTick+0x30>)
+ 8001094:	2207      	movs	r2, #7
+ 8001096:	601a      	str	r2, [r3, #0]
+                   SysTick_CTRL_ENABLE_Msk | SysTick_CTRL_TICKINT_Msk;                   /* Enable the Systick Timer */
+}
+ 8001098:	bf00      	nop
+ 800109a:	370c      	adds	r7, #12
+ 800109c:	46bd      	mov	sp, r7
+ 800109e:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80010a2:	4770      	bx	lr
+ 80010a4:	e000e010 	.word	0xe000e010
+
+080010a8 <LL_Init1msTick>:
+  * @param  HCLKFrequency HCLK frequency in Hz
+  * @note   HCLK frequency can be calculated thanks to RCC helper macro or function @ref LL_RCC_GetSystemClocksFreq
+  * @retval None
+  */
+void LL_Init1msTick(uint32_t HCLKFrequency)
+{
+ 80010a8:	b580      	push	{r7, lr}
+ 80010aa:	b082      	sub	sp, #8
+ 80010ac:	af00      	add	r7, sp, #0
+ 80010ae:	6078      	str	r0, [r7, #4]
+  /* Use frequency provided in argument */
+  LL_InitTick(HCLKFrequency, 1000U);
+ 80010b0:	f44f 717a 	mov.w	r1, #1000	; 0x3e8
+ 80010b4:	6878      	ldr	r0, [r7, #4]
+ 80010b6:	f7ff ffdd 	bl	8001074 <LL_InitTick>
+}
+ 80010ba:	bf00      	nop
+ 80010bc:	3708      	adds	r7, #8
+ 80010be:	46bd      	mov	sp, r7
+ 80010c0:	bd80      	pop	{r7, pc}
+	...
+
+080010c4 <LL_APB2_GRP1_EnableClock>:
+  *
+  *         (*) value not defined in all devices.
+  * @retval None
+*/
+__STATIC_INLINE void LL_APB2_GRP1_EnableClock(uint32_t Periphs)
+{
+ 80010c4:	b480      	push	{r7}
+ 80010c6:	b085      	sub	sp, #20
+ 80010c8:	af00      	add	r7, sp, #0
+ 80010ca:	6078      	str	r0, [r7, #4]
+  __IO uint32_t tmpreg;
+  SET_BIT(RCC->APB2ENR, Periphs);
+ 80010cc:	4b08      	ldr	r3, [pc, #32]	; (80010f0 <LL_APB2_GRP1_EnableClock+0x2c>)
+ 80010ce:	6e1a      	ldr	r2, [r3, #96]	; 0x60
+ 80010d0:	4907      	ldr	r1, [pc, #28]	; (80010f0 <LL_APB2_GRP1_EnableClock+0x2c>)
+ 80010d2:	687b      	ldr	r3, [r7, #4]
+ 80010d4:	4313      	orrs	r3, r2
+ 80010d6:	660b      	str	r3, [r1, #96]	; 0x60
+  /* Delay after an RCC peripheral clock enabling */
+  tmpreg = READ_BIT(RCC->APB2ENR, Periphs);
+ 80010d8:	4b05      	ldr	r3, [pc, #20]	; (80010f0 <LL_APB2_GRP1_EnableClock+0x2c>)
+ 80010da:	6e1a      	ldr	r2, [r3, #96]	; 0x60
+ 80010dc:	687b      	ldr	r3, [r7, #4]
+ 80010de:	4013      	ands	r3, r2
+ 80010e0:	60fb      	str	r3, [r7, #12]
+  (void)tmpreg;
+ 80010e2:	68fb      	ldr	r3, [r7, #12]
+}
+ 80010e4:	bf00      	nop
+ 80010e6:	3714      	adds	r7, #20
+ 80010e8:	46bd      	mov	sp, r7
+ 80010ea:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80010ee:	4770      	bx	lr
+ 80010f0:	40021000 	.word	0x40021000
+
+080010f4 <MSP_Callback_SysTick_Handler>:
+ * @note This function is declared as __weak to be overwritten in case of other
+ *      implementations in user file.
+ * @retval None
+ */
+void MSP_Callback_SysTick_Handler(void)
+{
+ 80010f4:	b480      	push	{r7}
+ 80010f6:	af00      	add	r7, sp, #0
+	uwTick ++;
+ 80010f8:	4b04      	ldr	r3, [pc, #16]	; (800110c <MSP_Callback_SysTick_Handler+0x18>)
+ 80010fa:	681b      	ldr	r3, [r3, #0]
+ 80010fc:	3301      	adds	r3, #1
+ 80010fe:	4a03      	ldr	r2, [pc, #12]	; (800110c <MSP_Callback_SysTick_Handler+0x18>)
+ 8001100:	6013      	str	r3, [r2, #0]
+}
+ 8001102:	bf00      	nop
+ 8001104:	46bd      	mov	sp, r7
+ 8001106:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800110a:	4770      	bx	lr
+ 800110c:	20000054 	.word	0x20000054
+
+08001110 <MSP_GetTick>:
+ * @note This function is declared as __weak to be overwritten in case of other
+ *       implementations in user file.
+ * @retval tick value
+ */
+uint32_t MSP_GetTick(void)
+{
+ 8001110:	b480      	push	{r7}
+ 8001112:	af00      	add	r7, sp, #0
+	return uwTick;
+ 8001114:	4b03      	ldr	r3, [pc, #12]	; (8001124 <MSP_GetTick+0x14>)
+ 8001116:	681b      	ldr	r3, [r3, #0]
+}
+ 8001118:	4618      	mov	r0, r3
+ 800111a:	46bd      	mov	sp, r7
+ 800111c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8001120:	4770      	bx	lr
+ 8001122:	bf00      	nop
+ 8001124:	20000054 	.word	0x20000054
+
+08001128 <MSP_Init1msTick>:
+
+void MSP_Init1msTick(void){
+ 8001128:	b580      	push	{r7, lr}
+ 800112a:	af00      	add	r7, sp, #0
+	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
+ 800112c:	2001      	movs	r0, #1
+ 800112e:	f7ff ffc9 	bl	80010c4 <LL_APB2_GRP1_EnableClock>
+	LL_Init1msTick(4000000);
+ 8001132:	4802      	ldr	r0, [pc, #8]	; (800113c <MSP_Init1msTick+0x14>)
+ 8001134:	f7ff ffb8 	bl	80010a8 <LL_Init1msTick>
+}
+ 8001138:	bf00      	nop
+ 800113a:	bd80      	pop	{r7, pc}
+ 800113c:	003d0900 	.word	0x003d0900
+
+08001140 <Reset_Handler>:
+
+  .section .text.Reset_Handler
+  .weak Reset_Handler
+  .type Reset_Handler, %function
+Reset_Handler:
+  ldr   r0, =_estack
+ 8001140:	480d      	ldr	r0, [pc, #52]	; (8001178 <LoopForever+0x2>)
+  mov   sp, r0          /* set stack pointer */
+ 8001142:	4685      	mov	sp, r0
+/* Call the clock system initialization function.*/
+  bl  SystemInit
+ 8001144:	f3af 8000 	nop.w
+
+/* Copy the data segment initializers from flash to SRAM */
+  ldr r0, =_sdata
+ 8001148:	480c      	ldr	r0, [pc, #48]	; (800117c <LoopForever+0x6>)
+  ldr r1, =_edata
+ 800114a:	490d      	ldr	r1, [pc, #52]	; (8001180 <LoopForever+0xa>)
+  ldr r2, =_sidata
+ 800114c:	4a0d      	ldr	r2, [pc, #52]	; (8001184 <LoopForever+0xe>)
+  movs r3, #0
+ 800114e:	2300      	movs	r3, #0
+  b LoopCopyDataInit
+ 8001150:	e002      	b.n	8001158 <LoopCopyDataInit>
+
+08001152 <CopyDataInit>:
+
+CopyDataInit:
+  ldr r4, [r2, r3]
+ 8001152:	58d4      	ldr	r4, [r2, r3]
+  str r4, [r0, r3]
+ 8001154:	50c4      	str	r4, [r0, r3]
+  adds r3, r3, #4
+ 8001156:	3304      	adds	r3, #4
+
+08001158 <LoopCopyDataInit>:
+
+LoopCopyDataInit:
+  adds r4, r0, r3
+ 8001158:	18c4      	adds	r4, r0, r3
+  cmp r4, r1
+ 800115a:	428c      	cmp	r4, r1
+  bcc CopyDataInit
+ 800115c:	d3f9      	bcc.n	8001152 <CopyDataInit>
+
+/* Zero fill the bss segment. */
+  ldr r2, =_sbss
+ 800115e:	4a0a      	ldr	r2, [pc, #40]	; (8001188 <LoopForever+0x12>)
+  ldr r4, =_ebss
+ 8001160:	4c0a      	ldr	r4, [pc, #40]	; (800118c <LoopForever+0x16>)
+  movs r3, #0
+ 8001162:	2300      	movs	r3, #0
+  b LoopFillZerobss
+ 8001164:	e001      	b.n	800116a <LoopFillZerobss>
+
+08001166 <FillZerobss>:
+
+FillZerobss:
+  str  r3, [r2]
+ 8001166:	6013      	str	r3, [r2, #0]
+  adds r2, r2, #4
+ 8001168:	3204      	adds	r2, #4
+
+0800116a <LoopFillZerobss>:
+
+LoopFillZerobss:
+  cmp r2, r4
+ 800116a:	42a2      	cmp	r2, r4
+  bcc FillZerobss
+ 800116c:	d3fb      	bcc.n	8001166 <FillZerobss>
+
+/* Call static constructors */
+  bl __libc_init_array
+ 800116e:	f000 f811 	bl	8001194 <__libc_init_array>
+/* Call the application's entry point.*/
+  bl main
+ 8001172:	f7ff faa3 	bl	80006bc <main>
+
+08001176 <LoopForever>:
+
+LoopForever:
+  b LoopForever
+ 8001176:	e7fe      	b.n	8001176 <LoopForever>
+  ldr   r0, =_estack
+ 8001178:	20018000 	.word	0x20018000
+  ldr r0, =_sdata
+ 800117c:	20000000 	.word	0x20000000
+  ldr r1, =_edata
+ 8001180:	20000010 	.word	0x20000010
+  ldr r2, =_sidata
+ 8001184:	080011fc 	.word	0x080011fc
+  ldr r2, =_sbss
+ 8001188:	20000010 	.word	0x20000010
+  ldr r4, =_ebss
+ 800118c:	20000058 	.word	0x20000058
+
+08001190 <ADC1_2_IRQHandler>:
+ * @retval : None
+*/
+  .section .text.Default_Handler,"ax",%progbits
+Default_Handler:
+Infinite_Loop:
+  b Infinite_Loop
+ 8001190:	e7fe      	b.n	8001190 <ADC1_2_IRQHandler>
+	...
+
+08001194 <__libc_init_array>:
+ 8001194:	b570      	push	{r4, r5, r6, lr}
+ 8001196:	4d0d      	ldr	r5, [pc, #52]	; (80011cc <__libc_init_array+0x38>)
+ 8001198:	4c0d      	ldr	r4, [pc, #52]	; (80011d0 <__libc_init_array+0x3c>)
+ 800119a:	1b64      	subs	r4, r4, r5
+ 800119c:	10a4      	asrs	r4, r4, #2
+ 800119e:	2600      	movs	r6, #0
+ 80011a0:	42a6      	cmp	r6, r4
+ 80011a2:	d109      	bne.n	80011b8 <__libc_init_array+0x24>
+ 80011a4:	4d0b      	ldr	r5, [pc, #44]	; (80011d4 <__libc_init_array+0x40>)
+ 80011a6:	4c0c      	ldr	r4, [pc, #48]	; (80011d8 <__libc_init_array+0x44>)
+ 80011a8:	f000 f818 	bl	80011dc <_init>
+ 80011ac:	1b64      	subs	r4, r4, r5
+ 80011ae:	10a4      	asrs	r4, r4, #2
+ 80011b0:	2600      	movs	r6, #0
+ 80011b2:	42a6      	cmp	r6, r4
+ 80011b4:	d105      	bne.n	80011c2 <__libc_init_array+0x2e>
+ 80011b6:	bd70      	pop	{r4, r5, r6, pc}
+ 80011b8:	f855 3b04 	ldr.w	r3, [r5], #4
+ 80011bc:	4798      	blx	r3
+ 80011be:	3601      	adds	r6, #1
+ 80011c0:	e7ee      	b.n	80011a0 <__libc_init_array+0xc>
+ 80011c2:	f855 3b04 	ldr.w	r3, [r5], #4
+ 80011c6:	4798      	blx	r3
+ 80011c8:	3601      	adds	r6, #1
+ 80011ca:	e7f2      	b.n	80011b2 <__libc_init_array+0x1e>
+ 80011cc:	080011f4 	.word	0x080011f4
+ 80011d0:	080011f4 	.word	0x080011f4
+ 80011d4:	080011f4 	.word	0x080011f4
+ 80011d8:	080011f8 	.word	0x080011f8
+
+080011dc <_init>:
+ 80011dc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80011de:	bf00      	nop
+ 80011e0:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80011e2:	bc08      	pop	{r3}
+ 80011e4:	469e      	mov	lr, r3
+ 80011e6:	4770      	bx	lr
+
+080011e8 <_fini>:
+ 80011e8:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80011ea:	bf00      	nop
+ 80011ec:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80011ee:	bc08      	pop	{r3}
+ 80011f0:	469e      	mov	lr, r3
+ 80011f2:	4770      	bx	lr

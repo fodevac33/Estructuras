@@ -1,0 +1,10 @@
+20:52:41 **** Incremental Build of configuration Debug for project ETst ****
+make -j12 all 
+arm-none-eabi-size   ETst.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38596	    512	   1712	  40820	   9f74	ETst.elf
+Finished building: default.size.stdout
+ 
+
+20:52:41 Build Finished. 0 errors, 0 warnings. (took 179ms)
+

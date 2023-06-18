@@ -1,0 +1,10 @@
+15:53:21 **** Build of configuration Debug for project LedBLink-C-Timing ****
+make -j12 all 
+arm-none-eabi-size   LedBLink-C-Timing.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1964	     12	   1588	   3564	    dec	LedBLink-C-Timing.elf
+Finished building: default.size.stdout
+ 
+
+15:53:21 Build Finished. 0 errors, 0 warnings. (took 114ms)
+

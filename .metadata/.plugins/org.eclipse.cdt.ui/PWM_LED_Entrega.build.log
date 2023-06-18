@@ -1,0 +1,10 @@
+09:26:21 **** Incremental Build of configuration Debug for project PWM_LED_Entrega ****
+make -j12 all 
+arm-none-eabi-size   PWM_LED_Entrega.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12824	    116	   1604	  14544	   38d0	PWM_LED_Entrega.elf
+Finished building: default.size.stdout
+ 
+
+09:26:21 Build Finished. 0 errors, 0 warnings. (took 114ms)
+

@@ -1,0 +1,2 @@
+../Peripherals/Src/SysConfig.c:11:6:SysConfigClock	96	static
+../Peripherals/Src/SysConfig.c:57:6:Error_Handler	4	static,ignoring_inline_asm

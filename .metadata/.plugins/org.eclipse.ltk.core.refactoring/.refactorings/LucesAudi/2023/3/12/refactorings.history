@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Move &apos;AUDI_fms.h&apos; to &apos;Include&apos;" description="Move &apos;AUDI_fms.h&apos; to &apos;Include&apos;" destination="Core/Include" element1="Drivers/AUDI_Driver/Include/AUDI_fms.h" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1679580126608" updateReferences="true"/>&#x0A;<refactoring comment="Move &apos;AUDI_fms.c&apos; to &apos;Source&apos;" description="Move &apos;AUDI_fms.c&apos; to &apos;Source&apos;" destination="Core/Source" element1="Drivers/AUDI_Driver/Source/AUDI_fms.c" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1679580134255" updateReferences="true"/>
+</session>

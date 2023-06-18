@@ -1,0 +1,9 @@
+core_cm4.h:1679:22:__NVIC_EnableIRQ	2
+core_cm4.h:1809:22:__NVIC_SetPriority	2
+Joystick.c:15:13:Joystick_Button_Interrupt_Init	4
+Joystick.c:44:13:Joystick_Gpio_XY	4
+Joystick.c:67:13:Joystick_ClkConfig	1
+Joystick.c:86:13:Joystick_Init	1
+Joystick.c:132:19:Joystick_Create	1
+Joystick.c:157:16:ADC_To_Joystic	1
+Joystick.c:162:6:Joystick_Read	1

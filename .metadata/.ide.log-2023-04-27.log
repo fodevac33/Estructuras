@@ -1,0 +1,14 @@
+2023-04-27 15:50:11,554 [INFO] Activator:176 - 
+
+
+2023-04-27 15:50:11,558 [INFO] Activator:177 - !SESSION log4j initialized
+2023-04-27 15:50:15,616 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
+2023-04-27 15:50:36,500 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+2023-04-27 15:50:36,500 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] SLF4J: Defaulting to no-operation (NOP) logger implementation
+2023-04-27 15:50:36,500 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+2023-04-27 16:17:32,216 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.prefix.1168843831 uses a null category that is invalid in its context. The option was ignored.
+2023-04-27 16:17:32,217 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.mcu.1539792922 uses a null category that is invalid in its context. The option was ignored.
+2023-04-27 16:17:32,217 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.board.2064320571 uses a null category that is invalid in its context. The option was ignored.
+2023-04-27 16:17:32,217 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.instructionSet.1928997127 uses a null category that is invalid in its context. The option was ignored.
+2023-04-27 16:17:32,218 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.fpu.678361106 uses a null category that is invalid in its context. The option was ignored.
+2023-04-27 16:17:32,218 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.floatabi.438510462 uses a null category that is invalid in its context. The option was ignored.

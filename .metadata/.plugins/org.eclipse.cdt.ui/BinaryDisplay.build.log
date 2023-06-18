@@ -1,0 +1,10 @@
+09:42:10 **** Incremental Build of configuration Debug for project BinaryDisplay ****
+make -j12 all 
+arm-none-eabi-size   BinaryDisplay.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2736	     12	   1588	   4336	   10f0	BinaryDisplay.elf
+Finished building: default.size.stdout
+ 
+
+09:42:10 Build Finished. 0 errors, 0 warnings. (took 170ms)
+

@@ -1,0 +1,2 @@
+../Peripherals/Core/USART.c:13:6:USART_Gpio	32	static
+../Peripherals/Core/USART.c:30:6:USART_Init	24	static

@@ -1,0 +1,7 @@
+../Drivers/CMSIS/Include/core_cm4.h:1679:22:__NVIC_EnableIRQ	16	static,ignoring_inline_asm
+../Drivers/CMSIS/Include/core_cm4.h:1809:22:__NVIC_SetPriority	16	static
+../Core/Src/ROBOT.c:11:6:Mode_Change_Interrupt_Init	32	static
+../Core/Src/ROBOT.c:30:14:Joystick_To_Servo	16	static
+../Core/Src/ROBOT.c:35:6:Robot_Move	32	static
+../Core/Src/ROBOT.c:45:6:Robot_Neutral	24	static
+../Core/Src/ROBOT.c:52:22:Process_Command	64	static

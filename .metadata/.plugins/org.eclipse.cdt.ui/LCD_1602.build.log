@@ -1,0 +1,10 @@
+10:31:02 **** Incremental Build of configuration Debug for project LCD_1602 ****
+make -j12 all 
+arm-none-eabi-size   LCD_1602.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6848	     44	   1572	   8464	   2110	LCD_1602.elf
+Finished building: default.size.stdout
+ 
+
+10:31:02 Build Finished. 0 errors, 0 warnings. (took 118ms)
+

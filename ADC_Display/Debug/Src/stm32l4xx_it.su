@@ -1,0 +1,14 @@
+/home/felipe/Documents/Estructuras/ADC_Display/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_exti.h:1186:26:LL_EXTI_IsActiveFlag_0_31	16	static
+/home/felipe/Documents/Estructuras/ADC_Display/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_exti.h:1298:22:LL_EXTI_ClearFlag_0_31	16	static
+/home/felipe/Documents/Estructuras/ADC_Display/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_adc.h:6553:26:LL_ADC_IsActiveFlag_OVR	16	static
+/home/felipe/Documents/Estructuras/ADC_Display/Drivers/STM32L4xx_LL_Drivers/Inc/stm32l4xx_ll_adc.h:6677:22:LL_ADC_ClearFlag_OVR	16	static
+../Src/stm32l4xx_it.c:49:6:NMI_Handler	4	static
+../Src/stm32l4xx_it.c:58:6:HardFault_Handler	4	static
+../Src/stm32l4xx_it.c:71:6:MemManage_Handler	4	static
+../Src/stm32l4xx_it.c:84:6:BusFault_Handler	4	static
+../Src/stm32l4xx_it.c:97:6:UsageFault_Handler	4	static
+../Src/stm32l4xx_it.c:110:6:SVC_Handler	4	static
+../Src/stm32l4xx_it.c:119:6:DebugMon_Handler	4	static
+../Src/stm32l4xx_it.c:128:6:PendSV_Handler	4	static
+../Src/stm32l4xx_it.c:153:6:EXTI15_10_IRQHandler	8	static
+../Src/stm32l4xx_it.c:173:6:ADC1_2_IRQHandler	8	static

@@ -1,0 +1,7 @@
+15:53:21 **** Build of configuration Debug for project Stop_Watch ****
+make -j12 all 
+Drivers/STM32L4xx_LL_Drivers/Src/stm32l4xx_ll_utils.d:1: *** multiple target patterns.  Stop.
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+15:53:21 Build Failed. 1 errors, 0 warnings. (took 114ms)
+

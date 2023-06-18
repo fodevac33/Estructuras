@@ -1,0 +1,5 @@
+../Peripherals/Src/SG90.c:11:13:SG90_Gpio	48	static
+../Peripherals/Src/SG90.c:56:13:SG90_Init	80	static
+../Peripherals/Src/SG90.c:110:13:Servo_SetDutyCyle	24	static
+../Peripherals/Src/SG90.c:123:15:Servo_Create	56	static
+../Peripherals/Src/SG90.c:143:6:Servo_Rotate	24	static
